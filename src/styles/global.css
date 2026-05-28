@@ -23,7 +23,7 @@
   --font-ui:       'Jost', sans-serif;
 
   /* Espaçamentos */
-  --section-py:    clamp(80px, 10vw, 140px);
+  --section-py:    clamp(100px, 13vw, 180px);
   --container:     1160px;
   --gap:           clamp(24px, 4vw, 60px);
 
