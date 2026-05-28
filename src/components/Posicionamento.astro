@@ -1,0 +1,135 @@
+---
+// SEÇÃO 2 — POSICIONAMENTO
+// O que é o Tarot Terapêutico — três pilares
+---
+
+<section class="posicionamento" id="posicionamento" aria-label="Posicionamento">
+  <div class="container">
+    <div class="posicionamento__inner">
+
+      <span class="eyebrow fade-in">01 · O QUE É ISSO</span>
+
+      <h2 class="title-section posicionamento__title fade-in fade-in-delay-1">
+        Um espaço de escuta,<br />simbolização e elaboração
+      </h2>
+
+      <div class="posicionamento__body fade-in fade-in-delay-2">
+        <p>
+          Os oráculos não dizem quem você é.
+        </p>
+        <p>
+          Eles ajudam você a se escutar.
+        </p>
+        <p class="posicionamento__highlight">
+          Entre símbolos e escuta, um espaço para produzir sentido.
+        </p>
+      </div>
+
+      <div class="posicionamento__pillars fade-in fade-in-delay-3">
+        <div class="pillar">
+          <span class="diamond"></span>
+          <span class="pillar__label">Escuta</span>
+        </div>
+        <div class="pillar">
+          <span class="diamond"></span>
+          <span class="pillar__label">Simbolização</span>
+        </div>
+        <div class="pillar">
+          <span class="diamond"></span>
+          <span class="pillar__label">Elaboração</span>
+        </div>
+      </div>
+
+      <p class="posicionamento__disclaimer fade-in fade-in-delay-4">
+        Mais do que respostas: um espaço para se escutar através dos símbolos.
+      </p>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .posicionamento {
+    background: var(--bg-primary);
+    padding-block: var(--section-py);
+    text-align: center;
+  }
+
+  .posicionamento__inner {
+    max-width: 600px;
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .posicionamento__title {
+    margin-bottom: clamp(28px, 4vw, 44px);
+  }
+
+  .posicionamento__body {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: clamp(40px, 6vw, 64px);
+  }
+
+  .posicionamento__body p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(18px, 2vw, 22px);
+    font-weight: 300;
+    line-height: 1.8;
+    color: var(--text);
+  }
+
+  .posicionamento__highlight {
+    font-style: italic !important;
+    color: var(--gold-soft) !important;
+    font-size: clamp(20px, 2.2vw, 24px) !important;
+    margin-top: 8px;
+  }
+
+  /* Pilares */
+  .posicionamento__pillars {
+    display: flex;
+    align-items: center;
+    gap: clamp(24px, 5vw, 56px);
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .pillar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .pillar__label {
+    font-family: 'Jost', sans-serif;
+    font-size: 12px;
+    font-weight: 300;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold-soft);
+  }
+
+  .posicionamento__disclaimer {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+    font-style: italic;
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+  }
+
+  /* Separadores */
+  .posicionamento::before,
+  .posicionamento::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 1px;
+    background: var(--gold);
+    opacity: 0.15;
+  }
+</style>

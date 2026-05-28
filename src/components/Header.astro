@@ -1,0 +1,261 @@
+---
+// Header — navegação fixa com logo e links
+---
+
+<header class="site-header" id="site-header">
+  <div class="container header-inner">
+    <!-- Logo -->
+    <a href="/" class="logo" aria-label="Jady Mota — início">
+      <span class="logo-name">JADY MOTA</span>
+      <span class="logo-sub">Tarot Terapêutico</span>
+    </a>
+
+    <!-- Nav desktop -->
+    <nav class="nav-desktop" aria-label="Navegação principal">
+      <a href="#sobre" class="nav-link">Sobre</a>
+      <a href="#servicos" class="nav-link">Serviços</a>
+      <a href="#processo" class="nav-link">Como funciona</a>
+      <a href="#faq" class="nav-link">FAQ</a>
+      <a
+        href="#servicos"
+        class="nav-cta"
+        aria-label="Agendar consulta"
+      >Agendar</a>
+    </nav>
+
+    <!-- Botão menu mobile -->
+    <button
+      class="menu-toggle"
+      aria-label="Abrir menu"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+    >
+      <span class="menu-bar"></span>
+      <span class="menu-bar"></span>
+      <span class="menu-bar"></span>
+    </button>
+  </div>
+
+  <!-- Menu mobile -->
+  <nav class="nav-mobile" id="mobile-menu" aria-hidden="true">
+    <a href="#sobre" class="mobile-link">Sobre</a>
+    <a href="#servicos" class="mobile-link">Serviços</a>
+    <a href="#processo" class="mobile-link">Como funciona</a>
+    <a href="#faq" class="mobile-link">FAQ</a>
+    <a href="#servicos" class="mobile-link mobile-link--cta">Agendar consulta</a>
+  </nav>
+</header>
+
+<style>
+  .site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding-block: 18px;
+    background: rgba(13, 8, 5, 0.65);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(201, 168, 76, 0.08);
+    transition: background 0.5s ease, padding 0.4s ease, border-color 0.4s ease;
+  }
+
+  .site-header.scrolled {
+    background: rgba(13, 8, 5, 0.95);
+    backdrop-filter: blur(16px);
+    padding-block: 13px;
+    border-bottom-color: rgba(201, 168, 76, 0.18);
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  /* Logo */
+  .logo {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    line-height: 1;
+  }
+
+  .logo-name {
+    font-family: 'Cinzel', serif;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    color: var(--gold);
+  }
+
+  .logo-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px;
+    font-weight: 300;
+    font-style: italic;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+  }
+
+  /* Nav desktop */
+  .nav-desktop {
+    display: flex;
+    align-items: center;
+    gap: 36px;
+  }
+
+  .nav-link {
+    font-family: 'Jost', sans-serif;
+    font-size: 12px;
+    font-weight: 300;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    transition: color 0.3s ease;
+    position: relative;
+  }
+
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--gold);
+    transition: width 0.3s ease;
+  }
+
+  .nav-link:hover {
+    color: var(--gold-soft);
+  }
+
+  .nav-link:hover::after {
+    width: 100%;
+  }
+
+  .nav-cta {
+    font-family: 'Jost', sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--bg-primary);
+    background: var(--gold);
+    padding: 10px 22px;
+    border-radius: 2px;
+    transition: background 0.3s ease, transform 0.3s ease;
+  }
+
+  .nav-cta:hover {
+    background: var(--gold-soft);
+    transform: translateY(-1px);
+  }
+
+  /* Menu toggle */
+  .menu-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    padding: 4px;
+  }
+
+  .menu-bar {
+    display: block;
+    width: 24px;
+    height: 1px;
+    background: var(--gold-soft);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+
+  .menu-toggle.open .menu-bar:nth-child(1) {
+    transform: translateY(6px) rotate(45deg);
+  }
+  .menu-toggle.open .menu-bar:nth-child(2) {
+    opacity: 0;
+  }
+  .menu-toggle.open .menu-bar:nth-child(3) {
+    transform: translateY(-6px) rotate(-45deg);
+  }
+
+  /* Nav mobile */
+  .nav-mobile {
+    display: flex;
+    flex-direction: column;
+    background: rgba(13, 8, 5, 0.97);
+    backdrop-filter: blur(16px);
+    border-top: 1px solid rgba(201, 168, 76, 0.2);
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.5s ease;
+  }
+
+  .nav-mobile.open {
+    max-height: 400px;
+  }
+
+  .mobile-link {
+    font-family: 'Jost', sans-serif;
+    font-size: 13px;
+    font-weight: 300;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    padding: 18px clamp(20px, 5vw, 60px);
+    border-bottom: 1px solid rgba(201, 168, 76, 0.08);
+    transition: color 0.3s ease, background 0.3s ease;
+  }
+
+  .mobile-link:hover {
+    color: var(--gold);
+    background: rgba(201, 168, 76, 0.05);
+  }
+
+  .mobile-link--cta {
+    color: var(--gold);
+    border-bottom: none;
+    padding-block: 24px;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .nav-desktop {
+      display: none;
+    }
+    .menu-toggle {
+      display: flex;
+    }
+  }
+</style>
+
+<script>
+  const header = document.getElementById('site-header');
+  const toggle = document.querySelector('.menu-toggle');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const mobileLinks = document.querySelectorAll('.mobile-link');
+
+  // Scroll — adiciona classe .scrolled
+  window.addEventListener('scroll', () => {
+    header?.classList.toggle('scrolled', window.scrollY > 40);
+  }, { passive: true });
+
+  // Toggle menu mobile
+  toggle?.addEventListener('click', () => {
+    const isOpen = toggle.classList.toggle('open');
+    mobileMenu?.classList.toggle('open', isOpen);
+    toggle.setAttribute('aria-expanded', String(isOpen));
+    mobileMenu?.setAttribute('aria-hidden', String(!isOpen));
+  });
+
+  // Fecha ao clicar em link
+  mobileLinks.forEach((link) => {
+    link.addEventListener('click', () => {
+      toggle?.classList.remove('open');
+      mobileMenu?.classList.remove('open');
+      toggle?.setAttribute('aria-expanded', 'false');
+      mobileMenu?.setAttribute('aria-hidden', 'true');
+    });
+  });
+</script>

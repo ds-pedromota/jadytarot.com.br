@@ -1,0 +1,225 @@
+---
+// SEÇÃO 5 — COMO FUNCIONA
+
+const steps = [
+  {
+    num: '01',
+    titulo: 'Você escolhe o formato',
+    descricao: 'Consulta individual ou acompanhamento, no formato que faz sentido para o seu momento.',
+  },
+  {
+    num: '02',
+    titulo: 'Seleciona data e horário',
+    descricao: 'Acesso direto à agenda online com horários disponíveis em tempo real.',
+  },
+  {
+    num: '03',
+    titulo: 'Realiza o pagamento',
+    descricao: 'O pagamento prévio confirma a sua vaga. Seguro e sem trocas de mensagem.',
+  },
+  {
+    num: '04',
+    titulo: 'Recebe o link da sessão',
+    descricao: 'Confirmação e link da videochamada chegam por e-mail automaticamente.',
+  },
+];
+---
+
+<section class="como-funciona" id="processo" aria-label="Como funciona o processo">
+
+  <!-- Foto de fundo -->
+  <div class="como-funciona__bg">
+    <img
+      src="/images/jady-velas-ambas-maos.jpg"
+      alt="Jady Mota segurando uma vela com ambas as mãos, cercada de velas ao fundo"
+      class="como-funciona__img"
+      loading="lazy"
+    />
+    <div class="como-funciona__overlay"></div>
+  </div>
+
+  <!-- Conteúdo -->
+  <div class="container">
+    <div class="como-funciona__inner">
+
+      <!-- Cabeçalho -->
+      <div class="como-funciona__header fade-in">
+        <span class="eyebrow">04 · O PROCESSO</span>
+        <h2 class="como-funciona__title fade-in fade-in-delay-1">
+          Do agendamento<br />à consulta
+        </h2>
+      </div>
+
+      <!-- Steps -->
+      <div class="como-funciona__steps">
+        {steps.map((step, i) => (
+          <div class={`step fade-in fade-in-delay-${i + 1}`}>
+            <span class="step__num" aria-hidden="true">{step.num}</span>
+            <div class="step__body">
+              <h3 class="step__titulo">{step.titulo}</h3>
+              <p class="step__descricao">{step.descricao}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <a href="#servicos" class="btn-primary fade-in como-funciona__cta">
+        Agendar agora
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  /* ── Seção ─────────────────────────────────────────────── */
+  .como-funciona {
+    position: relative;
+    padding-block: var(--section-py);
+    overflow: hidden;
+  }
+
+  /* ── Foto de fundo ─────────────────────────────────────── */
+  .como-funciona__bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .como-funciona__img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Desloca a foto para a direita: rosto some, ambiente fica */
+    object-position: 75% center;
+    display: block;
+    /* Reduz a saturação quente da imagem */
+    filter: grayscale(35%) brightness(0.85);
+  }
+
+  /* Overlay pesado à esquerda (onde está o texto), suave à direita */
+  .como-funciona__overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(
+        to right,
+        rgba(13, 8, 5, 0.97) 0%,
+        rgba(13, 8, 5, 0.90) 40%,
+        rgba(13, 8, 5, 0.60) 70%,
+        rgba(13, 8, 5, 0.30) 100%
+      );
+  }
+
+  /* ── Layout interno ────────────────────────────────────── */
+  .como-funciona__inner {
+    position: relative;
+    z-index: 2;
+    /* Âncora à esquerda do container, sem max-width no wrapper pai */
+    max-width: 560px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── Cabeçalho ─────────────────────────────────────────── */
+  .como-funciona__header {
+    margin-bottom: clamp(40px, 6vw, 64px);
+  }
+
+  /* Título com Cormorant Garamond italic — funciona em caixa-baixa */
+  .como-funciona__title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(32px, 4vw, 52px);
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.15;
+    color: var(--gold-soft);
+    margin-top: 14px;
+    letter-spacing: 0.01em;
+  }
+
+  /* ── Steps ─────────────────────────────────────────────── */
+  .como-funciona__steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-bottom: 48px;
+  }
+
+  .step {
+    display: grid;
+    grid-template-columns: 52px 1fr;
+    gap: 0 20px;
+    padding-bottom: 36px;
+    align-items: start;
+  }
+
+  .step:last-child {
+    padding-bottom: 0;
+  }
+
+  /* Número grande e elegante */
+  .step__num {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(28px, 3vw, 40px);
+    font-weight: 400;
+    line-height: 1;
+    color: rgba(201, 168, 76, 0.25);
+    letter-spacing: -0.02em;
+    padding-top: 4px;
+    transition: color 0.4s ease;
+  }
+
+  .step:hover .step__num {
+    color: rgba(201, 168, 76, 0.55);
+  }
+
+  .step__body {
+    padding-top: 6px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid rgba(201, 168, 76, 0.10);
+  }
+
+  .step:last-child .step__body {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .step__titulo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(18px, 1.8vw, 22px);
+    font-weight: 400;
+    font-style: italic;
+    color: var(--gold-soft);
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+
+  .step__descricao {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(15px, 1.4vw, 17px);
+    font-weight: 300;
+    line-height: 1.75;
+    color: var(--text-muted);
+  }
+
+  /* ── CTA ───────────────────────────────────────────────── */
+  .como-funciona__cta {
+    align-self: flex-start;
+  }
+
+  /* ── Mobile ────────────────────────────────────────────── */
+  @media (max-width: 600px) {
+    .como-funciona__overlay {
+      background: rgba(13, 8, 5, 0.92);
+    }
+    .como-funciona__inner {
+      max-width: 100%;
+    }
+    .step__num {
+      font-size: 24px;
+    }
+  }
+</style>

@@ -1,0 +1,148 @@
+---
+// SEÇÃO 3 — QUEM É JADY
+// FOTO 1: jady-pb-blazer.jpg (P&B, blazer preto, cotovelos na mesa)
+// FOTO 2: jady-margaridas.jpg (campo de margaridas — usada em variante mobile ou depoimentos)
+---
+
+<section class="quem-sou" id="sobre" aria-label="Sobre Jady Mota">
+  <div class="container">
+    <div class="quem-sou__grid">
+      <div class="quem-sou__image-wrap fade-in">
+        
+        <img
+          src="/images/jady-pb-blazer.jpg"
+          alt="Jady Mota, praticante de Tarot Terapêutico, em retrato preto e branco"
+          loading="lazy"
+        />
+        <div class="quem-sou__image-ornament" aria-hidden="true"></div>
+      </div>
+
+      <!-- Texto -->
+      <div class="quem-sou__text">
+        <span class="eyebrow fade-in">02 · QUEM SOU</span>
+
+        <h2 class="title-section fade-in fade-in-delay-1">Jady Mota</h2>
+        <p class="quem-sou__subtitle fade-in fade-in-delay-1">
+          Praticante de Tarot Terapêutico
+        </p>
+
+        <div class="quem-sou__body body-text fade-in fade-in-delay-2">
+          <p>
+            Depois de anos estudando profundidade psíquica, simbolização e elaboração,
+            nasceu um espaço para que outras pessoas possam atravessar a si mesmas
+            através dos oráculos.
+          </p>
+          <p>
+            Tarot e escuta psicanalítica para quem deseja elaborar, compreender
+            e atravessar a própria experiência. Não para receber respostas,
+            mas para encontrar linguagem para o que já existe dentro.
+          </p>
+          <p>
+            Um espaço onde o inconsciente encontra linguagem através dos oráculos.
+          </p>
+        </div>
+
+        <a
+          href="https://instagram.com/jadytarot"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn-ghost fade-in fade-in-delay-3"
+          aria-label="Ver Instagram de Jady Mota"
+        >
+          Conheça minha abordagem →
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .quem-sou {
+    background: var(--bg-secondary);
+    padding-block: var(--section-py);
+    overflow: hidden;
+  }
+
+  .quem-sou__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(48px, 7vw, 100px);
+    align-items: center;
+  }
+
+  /* Imagem */
+  .quem-sou__image-wrap {
+    position: relative;
+  }
+
+  .quem-sou__placeholder {
+    aspect-ratio: 3/4;
+    width: 100%;
+  }
+
+  /* Quando tiver imagem real, use:
+  .quem-sou__image-wrap img {
+    width: 100%;
+    aspect-ratio: 3/4;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+  }
+  */
+
+  .quem-sou__image-ornament {
+    position: absolute;
+    inset: -12px -12px auto auto;
+    width: 60px;
+    height: 60px;
+    border-top: 1px solid rgba(201, 168, 76, 0.4);
+    border-right: 1px solid rgba(201, 168, 76, 0.4);
+    pointer-events: none;
+  }
+
+  /* Texto */
+  .quem-sou__text {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .quem-sou__subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(16px, 1.6vw, 20px);
+    font-style: italic;
+    font-weight: 300;
+    color: var(--text-muted);
+    margin-top: 8px;
+    margin-bottom: clamp(24px, 3.5vw, 40px);
+  }
+
+  .quem-sou__body {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    margin-bottom: clamp(32px, 4vw, 48px);
+  }
+
+  /* Mobile */
+  @media (max-width: 768px) {
+    .quem-sou__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .quem-sou__image-wrap {
+      max-width: 380px;
+      margin-inline: auto;
+    }
+
+    .quem-sou__text {
+      text-align: center;
+    }
+
+    .quem-sou__text .eyebrow,
+    .quem-sou__text .btn-ghost {
+      align-self: center;
+    }
+  }
+</style>

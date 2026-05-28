@@ -1,0 +1,247 @@
+---
+// FOOTER
+const anoAtual = new Date().getFullYear();
+
+const links = [
+  { label: 'Início', href: '#home' },
+  { label: 'Sobre', href: '#sobre' },
+  { label: 'Serviços', href: '#servicos' },
+  { label: 'Agenda', href: '#agendar' },
+];
+---
+
+<footer class="footer" role="contentinfo">
+  <div class="footer__top-line divider" aria-hidden="true"></div>
+
+  <div class="container footer__inner">
+    <!-- Coluna 1 — Logo e tagline -->
+    <div class="footer__brand">
+      <a href="/" class="footer__logo" aria-label="Jady Mota — início">
+        <span class="footer__logo-name">JADY MOTA</span>
+        <span class="footer__logo-tagline">Escuta · Simbolização · Elaboração</span>
+      </a>
+    </div>
+
+    <!-- Coluna 2 — Links -->
+    <nav class="footer__nav" aria-label="Links do footer">
+      {links.map((link) => (
+        <a href={link.href} class="footer__link">{link.label}</a>
+      ))}
+      <a
+        href="https://instagram.com/jadytarot"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="footer__link footer__link--ig"
+        aria-label="Instagram @jadytarot"
+      >
+        Instagram
+      </a>
+    </nav>
+
+    <!-- Coluna 3 — Contato / CTA mini -->
+    <div class="footer__cta">
+      <a href="#servicos" class="footer__cta-link">
+        Agendar consulta →
+      </a>
+    </div>
+  </div>
+
+  <div class="container footer__bottom">
+    <p class="footer__copy">
+      © {anoAtual} Jady Mota · Todos os direitos reservados
+    </p>
+    <p class="footer__credit">
+      Desenvolvido por <a href="https://jiupter.com.br" target="_blank" rel="noopener noreferrer">Jiupter</a>
+    </p>
+  </div>
+</footer>
+
+<!-- CTA Sticky Mobile -->
+<div class="sticky-cta" aria-label="Ação rápida mobile">
+  <a href="#servicos" class="sticky-cta__btn">
+    Agendar consulta
+  </a>
+</div>
+
+<style>
+  .footer {
+    background: var(--bg-primary);
+    padding-top: clamp(56px, 7vw, 80px);
+    padding-bottom: 40px;
+  }
+
+  .footer__top-line {
+    margin-bottom: clamp(48px, 6vw, 64px);
+  }
+
+  /* Inner grid */
+  .footer__inner {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 48px;
+    align-items: start;
+  }
+
+  /* Brand */
+  .footer__logo {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .footer__logo-name {
+    font-family: 'Cinzel', serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    color: var(--gold);
+  }
+
+  .footer__logo-tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 14px;
+    font-style: italic;
+    font-weight: 300;
+    color: var(--text-muted);
+  }
+
+  /* Nav */
+  .footer__nav {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .footer__link {
+    font-family: 'Jost', sans-serif;
+    font-size: 12px;
+    font-weight: 300;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    transition: color 0.3s ease;
+  }
+
+  .footer__link:hover {
+    color: var(--gold-soft);
+  }
+
+  .footer__link--ig {
+    color: var(--gold);
+    margin-top: 4px;
+  }
+
+  /* CTA coluna */
+  .footer__cta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  .footer__cta-link {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-style: italic;
+    font-weight: 300;
+    color: var(--gold-soft);
+    transition: color 0.3s ease;
+    border-bottom: 1px solid rgba(201, 168, 76, 0.3);
+    padding-bottom: 4px;
+  }
+
+  .footer__cta-link:hover {
+    color: var(--gold);
+    border-color: var(--gold);
+  }
+
+  /* Bottom bar */
+  .footer__bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(201, 168, 76, 0.1);
+    flex-wrap: wrap;
+  }
+
+  .footer__copy,
+  .footer__credit {
+    font-family: 'Jost', sans-serif;
+    font-size: 11px;
+    font-weight: 300;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+  }
+
+  .footer__credit a {
+    color: var(--gold);
+    transition: opacity 0.3s ease;
+  }
+
+  .footer__credit a:hover {
+    opacity: 0.7;
+  }
+
+  /* Sticky CTA Mobile */
+  .sticky-cta {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 99;
+    padding: 12px 20px;
+    padding-bottom: max(12px, env(safe-area-inset-bottom));
+    background: rgba(13, 8, 5, 0.95);
+    backdrop-filter: blur(12px);
+    border-top: 1px solid rgba(201, 168, 76, 0.2);
+  }
+
+  .sticky-cta__btn {
+    display: block;
+    background: var(--gold);
+    color: var(--bg-primary);
+    text-align: center;
+    font-family: 'Jost', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 16px;
+    border-radius: 2px;
+    transition: background 0.3s ease;
+  }
+
+  .sticky-cta__btn:hover {
+    background: var(--gold-soft);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .footer__inner {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+
+    .footer__cta {
+      align-items: flex-start;
+    }
+
+    .footer__bottom {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .sticky-cta {
+      display: block;
+    }
+
+    /* Dá espaço para o sticky CTA */
+    .footer {
+      padding-bottom: 96px;
+    }
+  }
+</style>

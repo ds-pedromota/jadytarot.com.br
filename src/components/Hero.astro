@@ -1,0 +1,255 @@
+---
+// SEÇÃO 1 — HERO
+// FOTO: /images/jady-fosforo-bicolor.jpg
+// Jady com fósforo aceso, iluminação bicolor vermelho/azul, fumaça subindo, olhar direto
+// Foto vertical (portrait) — object-position deve centralizar o rosto/busto
+---
+
+<section class="hero" id="home" aria-label="Apresentação">
+  <!-- Foto de fundo -->
+  <div class="hero__bg">
+    <img
+      src="/images/jady-fosforo-bicolor.jpg"
+      alt="Jady Mota com fósforo aceso, iluminação bicolor vermelho e azul"
+      class="hero__img"
+      loading="eager"
+      fetchpriority="high"
+    />
+    <!-- Vinheta: escurece bordas e ancora o texto no fundo -->
+    <div class="hero__vignette"></div>
+  </div>
+
+  <!-- Grain overlay via pseudo-elemento -->
+  <div class="hero__noise" aria-hidden="true"></div>
+
+  <!-- Conteúdo — dividido em topo (branding) e fundo (headline + CTA) -->
+  <div class="hero__inner">
+    <!-- Topo: identidade visual sobre a foto -->
+    <div class="container hero__top">
+      <!-- espaço reservado — o header fixo já ocupa esse lugar -->
+    </div>
+
+    <!-- Fundo: headline + copy + CTAs -->
+    <div class="container hero__bottom">
+      <div class="hero__text">
+
+        <div class="hero__pre fade-in">
+          <span class="hero__pre-line" aria-hidden="true"></span>
+          <span class="hero__pre-label">Tarot Terapêutico</span>
+        </div>
+
+        <h1 class="hero__headline fade-in fade-in-delay-1">
+          Para quem escolhe<br />olhar pra si.
+        </h1>
+
+        <p class="hero__body fade-in fade-in-delay-2">
+          O tarot como linguagem simbólica.<br />
+          A escuta como caminho de elaboração.
+        </p>
+
+        <div class="hero__actions fade-in fade-in-delay-3">
+          <a href="#servicos" class="btn-primary">Agendar consulta</a>
+          <a href="#processo" class="btn-ghost">Como funciona →</a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div class="hero__scroll" aria-hidden="true">
+    <div class="hero__scroll-line"></div>
+    <span class="hero__scroll-label">rolar</span>
+  </div>
+</section>
+
+<style>
+  /* ── Seção ────────────────────────────────────────────── */
+  .hero {
+    position: relative;
+    width: 100%;
+    height: 100svh;
+    min-height: 600px;
+    overflow: hidden;
+  }
+
+  /* ── Foto de fundo ────────────────────────────────────── */
+  .hero__bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .hero__img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /*
+      Para foto vertical (portrait) de Jady com fósforo:
+      - center top: mostra o rosto/busto, cortando a parte inferior
+      Ajuste object-position se necessário: ex. "55% top" ou "right top"
+    */
+    object-position: center top;
+    display: block;
+  }
+
+  /* Vinheta — escurece forte na base, suave no topo */
+  .hero__vignette {
+    position: absolute;
+    inset: 0;
+    background:
+      /* Base escura para texto legível */
+      linear-gradient(to top,
+        rgba(13, 8, 5, 0.96) 0%,
+        rgba(13, 8, 5, 0.72) 30%,
+        rgba(13, 8, 5, 0.30) 60%,
+        rgba(13, 8, 5, 0.15) 100%
+      ),
+      /* Vinheta lateral esquerda */
+      linear-gradient(to right,
+        rgba(13, 8, 5, 0.45) 0%,
+        transparent 55%
+      );
+  }
+
+  /* Grain overlay */
+  .hero__noise {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+    background-size: 256px 256px;
+    opacity: 0.6;
+    mix-blend-mode: overlay;
+  }
+
+  /* ── Layout interno ───────────────────────────────────── */
+  .hero__inner {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+
+  .hero__top {
+    /* reserva espaço para o header fixo (72px) + folga */
+    padding-top: 96px;
+    flex: 1;
+  }
+
+  .hero__bottom {
+    padding-bottom: clamp(56px, 8vw, 100px);
+  }
+
+  /* ── Texto ────────────────────────────────────────────── */
+  .hero__text {
+    max-width: min(520px, 48vw);
+  }
+
+  /* Pré-headline: linha + "Tarot Terapêutico" */
+  .hero__pre {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: clamp(20px, 3vw, 36px);
+  }
+
+  .hero__pre-line {
+    display: block;
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+    opacity: 0.7;
+    flex-shrink: 0;
+  }
+
+  .hero__pre-label {
+    font-family: 'Jost', sans-serif;
+    font-size: 11px;
+    font-weight: 300;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  /* Headline principal */
+  .hero__headline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(48px, 8vw, 100px);
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.02;
+    color: var(--cream);
+    margin-bottom: clamp(20px, 2.5vw, 36px);
+    letter-spacing: -0.02em;
+  }
+
+  .hero__body {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(16px, 1.6vw, 21px);
+    font-weight: 300;
+    line-height: 1.75;
+    color: rgba(232, 224, 213, 0.65);
+    margin-bottom: clamp(36px, 5vw, 56px);
+  }
+
+  .hero__actions {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+
+  /* ── Scroll indicator ─────────────────────────────────── */
+  .hero__scroll {
+    position: absolute;
+    bottom: clamp(28px, 4vw, 48px);
+    right: clamp(24px, 4vw, 56px);
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .hero__scroll-line {
+    width: 1px;
+    height: 52px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    animation: scrollPulse 2.6s ease-in-out infinite;
+    transform-origin: top;
+  }
+
+  .hero__scroll-label {
+    font-family: 'Jost', sans-serif;
+    font-size: 8px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: rgba(201, 168, 76, 0.5);
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.35; transform: scaleY(1); }
+    60%       { opacity: 1;    transform: scaleY(0.65); }
+  }
+
+  /* ── Mobile ───────────────────────────────────────────── */
+  @media (max-width: 600px) {
+    .hero__text {
+      max-width: 100%;
+    }
+    .hero__headline {
+      font-size: clamp(40px, 11vw, 56px);
+    }
+    .hero__scroll {
+      display: none;
+    }
+  }
+</style>

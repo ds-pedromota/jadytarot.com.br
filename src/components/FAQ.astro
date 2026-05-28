@@ -1,0 +1,208 @@
+---
+// SEÇÃO 7 — FAQ
+// Accordion com borda dourada
+
+const perguntas = [
+  {
+    id: 'faq-1',
+    pergunta: 'O Tarot Terapêutico é o mesmo que adivinhação?',
+    resposta: 'Não. Os oráculos não dizem quem você é. Eles ajudam você a se escutar. O trabalho é de escuta, simbolização e elaboração psíquica. As cartas funcionam como linguagem simbólica para o que já existe dentro de você. Não há previsões, há encontros com a própria experiência.',
+  },
+  {
+    id: 'faq-2',
+    pergunta: 'Preciso acreditar no tarot para fazer uma consulta?',
+    resposta: 'Não é necessário. Você só precisa estar disposto a se escutar com honestidade. O tarot é linguagem. E linguagem não exige crença, exige presença.',
+  },
+  {
+    id: 'faq-3',
+    pergunta: 'Como funciona o agendamento?',
+    resposta: 'Você escolhe o formato, seleciona data e horário disponíveis na agenda online e realiza o pagamento para confirmar. Simples e sem trocas de mensagem.',
+  },
+  {
+    id: 'faq-4',
+    pergunta: 'As consultas são presenciais?',
+    resposta: 'Todas as consultas são realizadas online, por videochamada.',
+  },
+  {
+    id: 'faq-5',
+    pergunta: 'Posso cancelar ou remarcar?',
+    resposta: 'Sim. Com até 24h de antecedência, sem custo. Reagendamentos tardios ficam a critério da disponibilidade.',
+  },
+];
+---
+
+<section class="faq" id="faq" aria-label="Perguntas frequentes">
+  <div class="container">
+    <div class="faq__header fade-in">
+      <span class="eyebrow">05 · PERGUNTAS FREQUENTES</span>
+      <h2 class="title-section">O que você precisa saber</h2>
+    </div>
+
+    <div class="faq__list" role="list">
+      {perguntas.map((item, i) => (
+        <div
+          class={`faq__item fade-in fade-in-delay-${Math.min(i + 1, 4)}`}
+          role="listitem"
+        >
+          <button
+            class="faq__question"
+            type="button"
+            aria-expanded="false"
+            aria-controls={item.id}
+            id={`${item.id}-btn`}
+          >
+            <span class="faq__question-text">{item.pergunta}</span>
+            <span class="faq__icon" aria-hidden="true">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M3 6l5 5 5-5"/>
+              </svg>
+            </span>
+          </button>
+          <div
+            class="faq__answer"
+            id={item.id}
+            role="region"
+            aria-labelledby={`${item.id}-btn`}
+            hidden
+          >
+            <p>{item.resposta}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq {
+    background: var(--bg-primary);
+    padding-block: var(--section-py);
+  }
+
+  .faq__header {
+    max-width: 560px;
+    margin-bottom: clamp(48px, 7vw, 72px);
+  }
+
+  .faq__header .title-section {
+    margin-top: 14px;
+  }
+
+  /* Lista */
+  .faq__list {
+    max-width: 760px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .faq__item {
+    border-bottom: 1px solid rgba(201, 168, 76, 0.18);
+  }
+
+  .faq__item:first-child {
+    border-top: 1px solid rgba(201, 168, 76, 0.18);
+  }
+
+  /* Botão pergunta */
+  .faq__question {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding-block: 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+  }
+
+  .faq__question-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(17px, 1.8vw, 21px);
+    font-weight: 400;
+    line-height: 1.4;
+    color: var(--gold-soft);
+    transition: color 0.3s ease;
+  }
+
+  .faq__question:hover .faq__question-text,
+  .faq__question[aria-expanded="true"] .faq__question-text {
+    color: var(--gold);
+  }
+
+  /* Ícone chevron */
+  .faq__icon {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    color: var(--gold);
+    opacity: 0.6;
+    transition: transform 0.4s ease, opacity 0.3s ease;
+  }
+
+  .faq__question[aria-expanded="true"] .faq__icon {
+    transform: rotate(180deg);
+    opacity: 1;
+  }
+
+  /* Resposta */
+  .faq__answer {
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.45s ease;
+  }
+
+  .faq__answer:not([hidden]) {
+    max-height: 300px;
+  }
+
+  .faq__answer[hidden] {
+    display: block !important; /* permite animar via max-height */
+    visibility: hidden;
+    max-height: 0;
+  }
+
+  .faq__answer p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(16px, 1.5vw, 19px);
+    font-weight: 300;
+    line-height: 1.85;
+    color: var(--text-muted);
+    padding-bottom: 24px;
+  }
+</style>
+
+<script>
+  // Accordion acessível com animação suave
+  const questions = document.querySelectorAll<HTMLButtonElement>('.faq__question');
+
+  questions.forEach((btn) => {
+    const answerId = btn.getAttribute('aria-controls');
+    const answer = answerId ? document.getElementById(answerId) : null;
+
+    btn.addEventListener('click', () => {
+      const isOpen = btn.getAttribute('aria-expanded') === 'true';
+
+      // Fecha todos os outros
+      questions.forEach((otherBtn) => {
+        const otherId = otherBtn.getAttribute('aria-controls');
+        const otherAnswer = otherId ? document.getElementById(otherId) : null;
+        if (otherBtn !== btn) {
+          otherBtn.setAttribute('aria-expanded', 'false');
+          otherAnswer?.setAttribute('hidden', '');
+        }
+      });
+
+      // Toggle atual
+      if (isOpen) {
+        btn.setAttribute('aria-expanded', 'false');
+        answer?.setAttribute('hidden', '');
+      } else {
+        btn.setAttribute('aria-expanded', 'true');
+        answer?.removeAttribute('hidden');
+      }
+    });
+  });
+</script>

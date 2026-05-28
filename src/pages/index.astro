@@ -1,0 +1,45 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import Posicionamento from '../components/Posicionamento.astro';
+import QuemSou from '../components/QuemSou.astro';
+import Servicos from '../components/Servicos.astro';
+import ComoFunciona from '../components/ComoFunciona.astro';
+import FraseImpacto from '../components/FraseImpacto.astro';
+import FAQ from '../components/FAQ.astro';
+import CTAFinal from '../components/CTAFinal.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+---
+
+<Layout>
+  <Header />
+  <main id="main-content">
+    <!-- 01 · Hero -->
+    <Hero />
+
+    <!-- 02 · O que é isso -->
+    <Posicionamento />
+
+    <!-- 03 · Quem sou -->
+    <QuemSou />
+
+    <!-- 04 · Atendimentos -->
+    <Servicos />
+
+    <!-- 05 · Como funciona -->
+    <ComoFunciona />
+
+    <!-- 06 · Frase de impacto -->
+    <FraseImpacto />
+
+    <!-- 07 · FAQ -->
+    <FAQ />
+
+    <!-- 08 · CTA Final -->
+    <CTAFinal />
+  </main>
+
+  <Footer />
+</Layout>

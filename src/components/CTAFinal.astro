@@ -1,0 +1,123 @@
+---
+// SEÇÃO 8 — CTA FINAL
+// FOTO: jady-vela-simples-fundo-claro.jpg
+// Jady segurando vela simples, olhar direto, batom vinho escuro, fundo claro
+// É a foto mais serena — convida ao contato
+---
+
+<section class="cta-final" id="agendar" aria-label="Chamada para ação">
+  <div class="cta-final__image-side">
+    <img
+      src="/images/jady-margaridas.jpg"
+      alt="Jady Mota segurando uma vela simples, olhar direto, convidando para uma consulta"
+      class="cta-final__img"
+      loading="lazy"
+    />
+  </div>
+
+  <div class="cta-final__text-side">
+    <div class="cta-final__content fade-in">
+      <span class="eyebrow">UM ESPAÇO POSSÍVEL</span>
+
+      <h2 class="title-section cta-final__title">
+        Pronto para se<br />escutar de verdade?
+      </h2>
+
+      <p class="cta-final__subtitle">
+        A agenda está aberta.
+      </p>
+
+      <div class="cta-final__actions">
+        <a href="#servicos" class="btn-primary">
+          Agendar minha consulta
+        </a>
+        <a
+          href="https://instagram.com/jadytarot"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn-ghost"
+          aria-label="Instagram de Jady Mota"
+        >
+          @jadytarot
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta-final {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 600px;
+  }
+
+  /* Foto */
+  .cta-final__image-side {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-final__img {
+    width: 100%;
+    height: 100%;
+    min-height: 400px;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+  }
+
+  /* Texto */
+  .cta-final__text-side {
+    background: var(--bg-primary);
+    display: flex;
+    align-items: center;
+    padding: clamp(48px, 7vw, 100px) clamp(32px, 6vw, 80px);
+  }
+
+  .cta-final__content {
+    max-width: 440px;
+  }
+
+  .cta-final__title {
+    margin-top: 16px;
+    margin-bottom: 16px;
+  }
+
+  .cta-final__subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(20px, 2vw, 26px);
+    font-style: italic;
+    font-weight: 300;
+    color: var(--text-muted);
+    margin-bottom: clamp(36px, 5vw, 56px);
+  }
+
+  .cta-final__actions {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+
+  /* Linha divisória */
+  .cta-final__text-side::before {
+    display: none;
+  }
+
+  /* Mobile */
+  @media (max-width: 768px) {
+    .cta-final {
+      grid-template-columns: 1fr;
+    }
+
+    .cta-final__image-side {
+      min-height: 340px;
+    }
+
+    .cta-final__text-side {
+      padding-inline: clamp(20px, 5vw, 40px);
+      padding-block: 60px;
+    }
+  }
+</style>

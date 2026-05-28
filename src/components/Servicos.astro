@@ -1,0 +1,306 @@
+---
+// SEÇÃO 4 — SERVIÇOS / ATENDIMENTOS
+// Cards com preços e CTAs de agendamento
+
+const servicos = [
+  {
+    numero: '01',
+    icon: 'moon',
+    nome: 'Consulta Individual',
+    descricao: 'Para questões pontuais, direcionamento e leitura aprofundada.',
+    duracao: '1 hora · Online',
+    valor: 'R$ 250,00',
+    destaque: false,
+    badge: null,
+  },
+  {
+    numero: '02',
+    icon: 'repeat',
+    nome: 'Acompanhamento Essencial',
+    descricao: 'Dois encontros mensais para acompanhamento emocional, simbólico e reflexivo.',
+    duracao: '2 sessões de 1h · Online',
+    valor: 'R$ 440,00/mês',
+    destaque: true,
+    badge: 'Mais escolhido',
+  },
+  {
+    numero: '03',
+    icon: 'layers',
+    nome: 'Acompanhamento Intensivo',
+    descricao: 'Quatro encontros mensais para processos de maior profundidade e continuidade.',
+    duracao: '4 sessões de 1h · Online',
+    valor: 'R$ 830,00/mês',
+    destaque: false,
+    badge: null,
+  },
+];
+---
+
+<section class="servicos" id="servicos" aria-label="Serviços e atendimentos">
+  <div class="container">
+    <div class="servicos__header fade-in">
+      <span class="eyebrow">03 · ATENDIMENTOS</span>
+      <h2 class="title-section">Como posso te acompanhar</h2>
+    </div>
+
+    <div class="servicos__grid">
+      {servicos.map((s, i) => (
+        <article
+          class={`card fade-in fade-in-delay-${i + 1}${s.destaque ? ' card--destaque' : ''}`}
+          aria-label={s.nome}
+        >
+          {s.badge && (
+            <div class="card__badge">{s.badge}</div>
+          )}
+
+          <div class="card__header">
+            <span class="card__numero">{s.numero}</span>
+            <div class={`card__icon card__icon--${s.icon}`} aria-hidden="true">
+              {s.icon === 'moon' && (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                </svg>
+              )}
+              {s.icon === 'repeat' && (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="17 1 21 5 17 9"/>
+                  <path d="M3 11V9a4 4 0 0 1 4-4h14"/>
+                  <polyline points="7 23 3 19 7 15"/>
+                  <path d="M21 13v2a4 4 0 0 1-4 4H3"/>
+                </svg>
+              )}
+              {s.icon === 'layers' && (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polygon points="12 2 2 7 12 12 22 7 12 2"/>
+                  <polyline points="2 17 12 22 22 17"/>
+                  <polyline points="2 12 12 17 22 12"/>
+                </svg>
+              )}
+            </div>
+          </div>
+
+          <h3 class="card__nome">{s.nome}</h3>
+          <p class="card__descricao">{s.descricao}</p>
+
+          <div class="card__meta">
+            <span class="card__duracao">{s.duracao}</span>
+            <span class="card__valor">{s.valor}</span>
+          </div>
+
+          <a
+            href="#agendar"
+            class={`card__cta${s.destaque ? ' card__cta--destaque' : ''}`}
+            aria-label={`Agendar ${s.nome}`}
+          >
+            Agendar →
+          </a>
+        </article>
+      ))}
+    </div>
+
+    <p class="servicos__nota fade-in">
+      Todas as consultas são realizadas online, com agendamento e pagamento prévio pelo site.
+    </p>
+  </div>
+</section>
+
+<style>
+  .servicos {
+    background: var(--bg-secondary);
+    padding-block: var(--section-py);
+  }
+
+  .servicos__header {
+    text-align: center;
+    margin-bottom: clamp(48px, 7vw, 80px);
+  }
+
+  .servicos__header .title-section {
+    margin-top: 12px;
+  }
+
+  /* Grid de cards */
+  .servicos__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-bottom: 40px;
+  }
+
+  /* Card base */
+  .card {
+    position: relative;
+    background: var(--bg-primary);
+    border: 1px solid rgba(201, 168, 76, 0.15);
+    border-radius: 2px;
+    padding: clamp(28px, 3vw, 40px);
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    transition: border-color 0.4s ease, transform 0.4s ease, box-shadow 0.4s ease;
+  }
+
+  .card:hover {
+    border-color: rgba(201, 168, 76, 0.5);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.4);
+  }
+
+  .card--destaque {
+    border-color: var(--gold);
+    background: linear-gradient(160deg, #1c1005 0%, #0d0805 100%);
+  }
+
+  .card--destaque:hover {
+    border-color: var(--gold-soft);
+    box-shadow: 0 12px 48px rgba(201, 168, 76, 0.2);
+  }
+
+  /* Badge */
+  .card__badge {
+    position: absolute;
+    top: -1px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--gold);
+    color: var(--bg-primary);
+    font-family: 'Jost', sans-serif;
+    font-size: 9px;
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 5px 16px;
+    white-space: nowrap;
+  }
+
+  /* Cabeçalho do card */
+  .card__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    margin-top: 8px;
+  }
+
+  .card__numero {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    color: var(--text-muted);
+  }
+
+  .card__icon {
+    width: 28px;
+    height: 28px;
+    color: var(--gold);
+    opacity: 0.7;
+  }
+
+  .card--destaque .card__icon {
+    opacity: 1;
+  }
+
+  /* Conteúdo */
+  .card__nome {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(14px, 1.4vw, 17px);
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    color: var(--gold-soft);
+    margin-bottom: 14px;
+    line-height: 1.3;
+  }
+
+  .card__descricao {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(16px, 1.4vw, 18px);
+    font-weight: 300;
+    line-height: 1.75;
+    color: var(--text-muted);
+    flex: 1;
+    margin-bottom: 24px;
+  }
+
+  /* Meta (duração + valor) */
+  .card__meta {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 28px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(201, 168, 76, 0.15);
+  }
+
+  .card__duracao {
+    font-family: 'Jost', sans-serif;
+    font-size: 11px;
+    font-weight: 300;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    text-transform: uppercase;
+  }
+
+  .card__valor {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(18px, 2vw, 22px);
+    font-weight: 400;
+    color: var(--gold-soft);
+  }
+
+  .card--destaque .card__valor {
+    color: var(--gold);
+  }
+
+  /* CTA do card */
+  .card__cta {
+    display: inline-block;
+    font-family: 'Jost', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid rgba(201, 168, 76, 0.35);
+    padding: 13px 24px;
+    border-radius: 2px;
+    text-align: center;
+    transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  }
+
+  .card__cta:hover {
+    background: rgba(201, 168, 76, 0.1);
+    border-color: var(--gold);
+  }
+
+  .card__cta--destaque {
+    background: var(--gold);
+    color: var(--bg-primary);
+    border-color: var(--gold);
+  }
+
+  .card__cta--destaque:hover {
+    background: var(--gold-soft);
+    border-color: var(--gold-soft);
+    color: var(--bg-primary);
+  }
+
+  /* Nota rodapé */
+  .servicos__nota {
+    text-align: center;
+    font-family: 'Jost', sans-serif;
+    font-size: 12px;
+    font-weight: 300;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .servicos__grid {
+      grid-template-columns: 1fr;
+      max-width: 480px;
+      margin-inline: auto;
+    }
+  }
+</style>
