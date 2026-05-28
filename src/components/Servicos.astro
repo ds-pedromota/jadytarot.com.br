@@ -190,9 +190,13 @@ const servicos = [
     padding-top: 20px; /* espaço para o badge do card destaque */
   }
 
-  /* ── Card scene (perspectiva) ──────────────────────────── */
+  /* ── Card scene ────────────────────────────────────────── */
   .card-scene {
-    perspective: 1000px;
+    /* Perspectiva removida daqui — está no transform do card-inner.
+       perspective como propriedade CSS sofre interferência de ancestrais
+       com overflow, opacity em transição, ou transform (ex: fade-in).
+       Usando perspective() no transform do filho, o contexto 3D é
+       sempre auto-contido e funciona em desktop e mobile. */
     cursor: pointer;
     height: 480px;
     position: relative;
@@ -232,20 +236,23 @@ const servicos = [
     position: relative;
     width: 100%;
     height: 100%;
-    transition: transform 0.7s ease-in-out;
     transform-style: preserve-3d;
+    -webkit-transform-style: preserve-3d;
+    /* perspective() no transform: auto-contido, imune a interferências do pai */
+    transform: perspective(1000px) rotateY(0deg);
+    transition: transform 0.7s ease-in-out;
   }
 
   /* Desktop: hover gira */
   @media (hover: hover) and (pointer: fine) {
     .card-scene:hover .card-inner {
-      transform: rotateY(180deg);
+      transform: perspective(1000px) rotateY(180deg);
     }
   }
 
   /* Mobile + teclado: classe .flipped via JS */
   .card-scene.flipped .card-inner {
-    transform: rotateY(180deg);
+    transform: perspective(1000px) rotateY(180deg);
   }
 
   @media (prefers-reduced-motion: reduce) {
