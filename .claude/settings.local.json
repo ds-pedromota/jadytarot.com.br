@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:jadytarot.jiupter.com.br)",
+      "Bash(vercel --version)"
+    ]
+  }
+}
