@@ -212,17 +212,6 @@ const servicos = [
     box-shadow: 0 0 0 2px rgba(201, 168, 76, 0.5);
   }
 
-  /*
-   * FIX: opacity < 1 em qualquer ancestral força preserve-3d a se achatar,
-   * tornando backface-visibility: hidden ineficaz. A animação do fade-in usa
-   * opacity 0→1, o que quebra o flip 3D. Solução: card-scene sempre opacity 1 —
-   * a animação de entrada fica apenas no transform (translateY).
-   */
-  .card-scene.fade-in,
-  .card-scene.fade-in.visible {
-    opacity: 1;
-  }
-
   /* Destaque: combina scale com o translateY do fade-in */
   .card-scene--destaque.fade-in {
     transform: scale(1.03) translateY(24px);
@@ -231,32 +220,14 @@ const servicos = [
     transform: scale(1.03);
   }
 
-  /* ── Inner (gira) ──────────────────────────────────────── */
+  /* ── Inner — wrapper estrutural apenas ─────────────────── */
   .card-inner {
     position: relative;
     width: 100%;
     height: 100%;
-    transform-style: preserve-3d;
-    -webkit-transform-style: preserve-3d;
-    /* perspective() no transform: auto-contido, imune a interferências do pai */
-    transform: perspective(1000px) rotateY(0deg);
-    transition: transform 0.7s ease-in-out;
-  }
-
-  /* Desktop: hover gira */
-  @media (hover: hover) and (pointer: fine) {
-    .card-scene:hover .card-inner {
-      transform: perspective(1000px) rotateY(180deg);
-    }
-  }
-
-  /* Mobile + teclado: classe .flipped via JS */
-  .card-scene.flipped .card-inner {
-    transform: perspective(1000px) rotateY(180deg);
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .card-inner { transition: none; }
+    /* Sem preserve-3d nem rotação aqui.
+       overflow:scroll no carrossel mobile aplana preserve-3d no WebKit/iOS,
+       eliminando a animação. Solução: cada face anima de forma independente. */
   }
 
   /* ── Faces compartilhadas ──────────────────────────────── */
@@ -264,19 +235,63 @@ const servicos = [
   .card-back {
     position: absolute;
     inset: 0;
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
     border-radius: 8px;
+    /* Sem backface-visibility: cada face nunca ultrapassa ±90°,
+       então a face traseira (espelhada) nunca aparece. */
+  }
+
+  /*
+   * ANIMAÇÃO DE FLIP — duas fases independentes
+   *
+   * Fase 1 (0 → 0.35s): frente gira de 0° → −90° (some)
+   * Fase 2 (0.35s → 0.7s): verso gira de 90° → 0° (aparece)
+   *
+   * Estados "base" carregam as transições da fase de REVERSA:
+   *   frente: ease-out delayed (fase 2 do retorno)
+   *   verso:  ease-in imediato (fase 1 do retorno)
+   */
+
+  /* Estado padrão: frente visível, verso escondido (edge-on a 90°) */
+  .card-front {
+    transform: perspective(1000px) rotateY(0deg);
+    transition: transform 0.35s ease-out 0.35s; /* reversa fase 2 */
+  }
+
+  .card-back {
+    transform: perspective(1000px) rotateY(90deg);
+    transition: transform 0.35s ease-in;         /* reversa fase 1 */
+  }
+
+  /* Estado virado: frente escondida (−90°), verso visível */
+  @media (hover: hover) and (pointer: fine) {
+    .card-scene:hover .card-front {
+      transform: perspective(1000px) rotateY(-90deg);
+      transition: transform 0.35s ease-in;         /* frente sai — fase 1 */
+    }
+    .card-scene:hover .card-back {
+      transform: perspective(1000px) rotateY(0deg);
+      transition: transform 0.35s ease-out 0.35s;  /* verso entra — fase 2 */
+    }
+  }
+
+  .card-scene.flipped .card-front {
+    transform: perspective(1000px) rotateY(-90deg);
+    transition: transform 0.35s ease-in;
+  }
+  .card-scene.flipped .card-back {
+    transform: perspective(1000px) rotateY(0deg);
+    transition: transform 0.35s ease-out 0.35s;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .card-front,
+    .card-back { transition: none; }
   }
 
   /* ─────────────────────────────────────────────────────── */
   /* FRENTE — dorso da carta de tarô                         */
   /* ─────────────────────────────────────────────────────── */
   .card-front {
-    /* rotateY(0deg) explícito: força o navegador a reconhecer
-       este elemento como participante do contexto 3D, garantindo
-       que backface-visibility: hidden funcione corretamente. */
-    transform: rotateY(0deg);
     background: #0D0805;
     border: 1px solid rgba(201, 168, 76, 0.55);
     overflow: hidden;
@@ -365,7 +380,6 @@ const servicos = [
   .card-back {
     background: #1A0F0A;
     border: 1px solid rgba(201, 168, 76, 0.4);
-    transform: rotateY(180deg);
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
     display: flex;
     flex-direction: column;
