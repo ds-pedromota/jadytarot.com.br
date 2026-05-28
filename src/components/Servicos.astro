@@ -1,6 +1,6 @@
 ---
-// SEÇÃO 4 — SERVIÇOS / ATENDIMENTOS
-// Cards com preços e CTAs de agendamento
+// SEÇÃO 3 — SERVIÇOS / ATENDIMENTOS
+// Flip cards estilo carta de tarô
 
 const servicos = [
   {
@@ -11,17 +11,15 @@ const servicos = [
     duracao: '1 hora · Online',
     valor: 'R$ 250,00',
     destaque: false,
-    badge: null,
   },
   {
     numero: '02',
-    icon: 'repeat',
+    icon: 'refresh',
     nome: 'Acompanhamento Essencial',
     descricao: 'Dois encontros mensais para acompanhamento emocional, simbólico e reflexivo.',
     duracao: '2 sessões de 1h · Online',
     valor: 'R$ 440,00/mês',
     destaque: true,
-    badge: 'Mais escolhido',
   },
   {
     numero: '03',
@@ -31,87 +29,143 @@ const servicos = [
     duracao: '4 sessões de 1h · Online',
     valor: 'R$ 830,00/mês',
     destaque: false,
-    badge: null,
   },
 ];
 ---
 
 <section class="servicos" id="servicos" aria-label="Serviços e atendimentos">
   <div class="container">
+
     <div class="servicos__header fade-in">
       <span class="eyebrow">03 · ATENDIMENTOS</span>
       <h2 class="title-section">Como posso te acompanhar</h2>
     </div>
 
-    <div class="servicos__grid">
+    <div class="cards-grid">
       {servicos.map((s, i) => (
-        <article
-          class={`card fade-in fade-in-delay-${i + 1}${s.destaque ? ' card--destaque' : ''}`}
-          aria-label={s.nome}
+        <div
+          class={`card-scene fade-in fade-in-delay-${i + 1}${s.destaque ? ' card-scene--destaque' : ''}`}
+          role="button"
+          tabindex="0"
+          aria-label={`Revelar plano ${s.nome}`}
+          aria-expanded="false"
         >
-          {s.badge && (
-            <div class="card__badge">{s.badge}</div>
-          )}
+          <div class="card-inner">
 
-          <div class="card__header">
-            <span class="card__numero">{s.numero}</span>
-            <div class={`card__icon card__icon--${s.icon}`} aria-hidden="true">
-              {s.icon === 'moon' && (
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-                </svg>
-              )}
-              {s.icon === 'repeat' && (
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="17 1 21 5 17 9"/>
-                  <path d="M3 11V9a4 4 0 0 1 4-4h14"/>
-                  <polyline points="7 23 3 19 7 15"/>
-                  <path d="M21 13v2a4 4 0 0 1-4 4H3"/>
-                </svg>
-              )}
-              {s.icon === 'layers' && (
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                  <polygon points="12 2 2 7 12 12 22 7 12 2"/>
-                  <polyline points="2 17 12 22 22 17"/>
-                  <polyline points="2 12 12 17 22 12"/>
-                </svg>
-              )}
+            <!-- FRENTE: dorso da carta de tarô -->
+            <div class="card-front" aria-hidden="true">
+
+              <svg class="cf-bg" viewBox="0 0 300 480" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                <defs>
+                  <pattern id={`p${i}`} x="0" y="0" width="32" height="32" patternUnits="userSpaceOnUse">
+                    <line x1="0" y1="0" x2="32" y2="32" stroke="#C9A84C" stroke-opacity="0.06" stroke-width="0.6"/>
+                    <line x1="32" y1="0" x2="0" y2="32" stroke="#C9A84C" stroke-opacity="0.06" stroke-width="0.6"/>
+                  </pattern>
+                </defs>
+                <rect width="300" height="480" fill={`url(#p${i})`}/>
+                <polygon points="150,144 210,240 150,336 90,240" fill="#C9A84C" fill-opacity="0.13"/>
+                <polygon points="150,182 184,240 150,298 116,240" fill="none" stroke="#C9A84C" stroke-opacity="0.22" stroke-width="0.6"/>
+                <!-- cantos: cruzetas + círculo -->
+                <line x1="26" y1="44" x2="46" y2="44" stroke="#C9A84C" stroke-opacity="0.3" stroke-width="0.7"/>
+                <line x1="36" y1="34" x2="36" y2="54" stroke="#C9A84C" stroke-opacity="0.3" stroke-width="0.7"/>
+                <circle cx="36" cy="44" r="2" fill="#C9A84C" fill-opacity="0.4"/>
+                <line x1="254" y1="44" x2="274" y2="44" stroke="#C9A84C" stroke-opacity="0.3" stroke-width="0.7"/>
+                <line x1="264" y1="34" x2="264" y2="54" stroke="#C9A84C" stroke-opacity="0.3" stroke-width="0.7"/>
+                <circle cx="264" cy="44" r="2" fill="#C9A84C" fill-opacity="0.4"/>
+                <line x1="26" y1="436" x2="46" y2="436" stroke="#C9A84C" stroke-opacity="0.3" stroke-width="0.7"/>
+                <line x1="36" y1="426" x2="36" y2="446" stroke="#C9A84C" stroke-opacity="0.3" stroke-width="0.7"/>
+                <circle cx="36" cy="436" r="2" fill="#C9A84C" fill-opacity="0.4"/>
+                <line x1="254" y1="436" x2="274" y2="436" stroke="#C9A84C" stroke-opacity="0.3" stroke-width="0.7"/>
+                <line x1="264" y1="426" x2="264" y2="446" stroke="#C9A84C" stroke-opacity="0.3" stroke-width="0.7"/>
+                <circle cx="264" cy="436" r="2" fill="#C9A84C" fill-opacity="0.4"/>
+              </svg>
+
+              <div class="cf-border-inner"></div>
+
+              <div class="cf-center">
+                <span class="cf-letter">J</span>
+                <span class="cf-brand">Jady Tarot</span>
+              </div>
+
+              <button class="cf-trigger" tabindex="-1" aria-hidden="true">
+                Revelar
+              </button>
+
             </div>
+
+            <!-- VERSO: informações do serviço -->
+            <div class={`card-back${s.destaque ? ' card-back--destaque' : ''}`}>
+
+              {s.destaque && (
+                <span class="cb-badge">Mais Escolhido</span>
+              )}
+
+              <div class="cb-header">
+                <span class="cb-numero">{s.numero}</span>
+                <span class="cb-icon" aria-hidden="true">
+                  {s.icon === 'moon' && (
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z"/>
+                    </svg>
+                  )}
+                  {s.icon === 'refresh' && (
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M20 11A8.1 8.1 0 0 0 4.5 9M4 5v4h4"/>
+                      <path d="M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4"/>
+                    </svg>
+                  )}
+                  {s.icon === 'layers' && (
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M12 4L4 8l8 4 8-4-8-4"/>
+                      <path d="M4 12l8 4 8-4"/>
+                      <path d="M4 16l8 4 8-4"/>
+                    </svg>
+                  )}
+                </span>
+              </div>
+
+              <h3 class="cb-nome">{s.nome}</h3>
+              <div class="cb-line"></div>
+              <p class="cb-descricao">{s.descricao}</p>
+              <div class="cb-line"></div>
+
+              <div class="cb-meta">
+                <span class="cb-duracao">{s.duracao}</span>
+                <span class="cb-valor">{s.valor}</span>
+              </div>
+
+              <a
+                href="#agendar"
+                class={`cb-cta${s.destaque ? ' cb-cta--destaque' : ''}`}
+                aria-label={`Agendar ${s.nome}`}
+                data-no-flip="true"
+              >
+                Agendar →
+              </a>
+
+            </div>
+
           </div>
-
-          <h3 class="card__nome">{s.nome}</h3>
-          <p class="card__descricao">{s.descricao}</p>
-
-          <div class="card__meta">
-            <span class="card__duracao">{s.duracao}</span>
-            <span class="card__valor">{s.valor}</span>
-          </div>
-
-          <a
-            href="#agendar"
-            class={`card__cta${s.destaque ? ' card__cta--destaque' : ''}`}
-            aria-label={`Agendar ${s.nome}`}
-          >
-            Agendar →
-          </a>
-        </article>
+        </div>
       ))}
     </div>
 
     <!-- Indicadores de posição (visíveis só no mobile) -->
     <div class="servicos__dots" aria-hidden="true">
       {servicos.map((_, i) => (
-        <button class={`servicos__dot${i === 0 ? ' active' : ''}`} aria-label={`Card ${i + 1}`}></button>
+        <button class={`servicos__dot${i === 0 ? ' active' : ''}`} aria-hidden="true"></button>
       ))}
     </div>
 
     <p class="servicos__nota fade-in">
       Todas as consultas são realizadas online, com agendamento e pagamento prévio pelo site.
     </p>
+
   </div>
 </section>
 
 <style>
+  /* ── Seção ─────────────────────────────────────────────── */
   .servicos {
     background: var(--bg-secondary);
     padding-block: var(--section-py);
@@ -126,173 +180,338 @@ const servicos = [
     margin-top: 12px;
   }
 
-  /* Grid de cards */
-  .servicos__grid {
+  /* ── Grid ──────────────────────────────────────────────── */
+  .cards-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 24px;
-    margin-bottom: 40px;
+    max-width: 1100px;
+    margin-inline: auto;
+    padding-top: 20px; /* espaço para o badge do card destaque */
   }
 
-  /* Card base */
-  .card {
+  /* ── Card scene (perspectiva) ──────────────────────────── */
+  .card-scene {
+    perspective: 1000px;
+    cursor: pointer;
+    height: 480px;
     position: relative;
-    background: var(--bg-primary);
-    border: 1px solid rgba(201, 168, 76, 0.15);
-    border-radius: 2px;
-    padding: clamp(28px, 3vw, 40px);
+    outline: none;
+  }
+
+  .card-scene--destaque {
+    transform: scale(1.03);
+  }
+
+  .card-scene:focus-visible .card-front,
+  .card-scene:focus-visible .card-back {
+    box-shadow: 0 0 0 2px rgba(201, 168, 76, 0.5);
+  }
+
+  /*
+   * FIX: opacity < 1 em qualquer ancestral força preserve-3d a se achatar,
+   * tornando backface-visibility: hidden ineficaz. A animação do fade-in usa
+   * opacity 0→1, o que quebra o flip 3D. Solução: card-scene sempre opacity 1 —
+   * a animação de entrada fica apenas no transform (translateY).
+   */
+  .card-scene.fade-in,
+  .card-scene.fade-in.visible {
+    opacity: 1;
+  }
+
+  /* Destaque: combina scale com o translateY do fade-in */
+  .card-scene--destaque.fade-in {
+    transform: scale(1.03) translateY(24px);
+  }
+  .card-scene--destaque.fade-in.visible {
+    transform: scale(1.03);
+  }
+
+  /* ── Inner (gira) ──────────────────────────────────────── */
+  .card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.7s ease-in-out;
+    transform-style: preserve-3d;
+  }
+
+  /* Desktop: hover gira */
+  @media (hover: hover) and (pointer: fine) {
+    .card-scene:hover .card-inner {
+      transform: rotateY(180deg);
+    }
+  }
+
+  /* Mobile + teclado: classe .flipped via JS */
+  .card-scene.flipped .card-inner {
+    transform: rotateY(180deg);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .card-inner { transition: none; }
+  }
+
+  /* ── Faces compartilhadas ──────────────────────────────── */
+  .card-front,
+  .card-back {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    border-radius: 8px;
+  }
+
+  /* ─────────────────────────────────────────────────────── */
+  /* FRENTE — dorso da carta de tarô                         */
+  /* ─────────────────────────────────────────────────────── */
+  .card-front {
+    /* rotateY(0deg) explícito: força o navegador a reconhecer
+       este elemento como participante do contexto 3D, garantindo
+       que backface-visibility: hidden funcione corretamente. */
+    transform: rotateY(0deg);
+    background: #0D0805;
+    border: 1px solid rgba(201, 168, 76, 0.55);
+    overflow: hidden;
     display: flex;
     flex-direction: column;
-    gap: 0;
-    transition: border-color 0.4s ease, transform 0.4s ease, box-shadow 0.4s ease;
+    align-items: center;
+    justify-content: center;
   }
 
-  .card:hover {
-    border-color: rgba(201, 168, 76, 0.5);
-    transform: translateY(-4px);
-    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.4);
-  }
-
-  .card--destaque {
-    border-color: var(--gold);
-    background: linear-gradient(160deg, #1c1005 0%, #0d0805 100%);
-  }
-
-  .card--destaque:hover {
-    border-color: var(--gold-soft);
-    box-shadow: 0 12px 48px rgba(201, 168, 76, 0.2);
-  }
-
-  /* Badge */
-  .card__badge {
+  /* Padrão SVG preenche o card inteiro */
+  .cf-bg {
     position: absolute;
-    top: -1px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--gold);
-    color: var(--bg-primary);
-    font-family: 'Jost', sans-serif;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Borda interna ornamental */
+  .cf-border-inner {
+    position: absolute;
+    inset: 10px;
+    border: 1px solid rgba(201, 168, 76, 0.2);
+    border-radius: 4px;
+    pointer-events: none;
+  }
+
+  /* Símbolo central */
+  .cf-center {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    user-select: none;
+  }
+
+  .cf-letter {
+    font-family: 'Cinzel', serif;
+    font-size: 76px;
+    font-weight: 400;
+    color: rgba(201, 168, 76, 0.28);
+    line-height: 1;
+    letter-spacing: 0.08em;
+  }
+
+  .cf-brand {
+    font-family: 'Cinzel', serif;
     font-size: 9px;
     font-weight: 400;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.3em;
+    color: rgba(201, 168, 76, 0.5);
     text-transform: uppercase;
-    padding: 5px 16px;
+  }
+
+  /* Botão de revelação */
+  .cf-trigger {
+    position: absolute;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+    background: none;
+    border: 1px solid rgba(201, 168, 76, 0.45);
+    border-radius: 2px;
+    padding: 10px 26px;
+    font-family: 'Jost', sans-serif;
+    font-size: 10px;
+    font-weight: 300;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #E8D5A3;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: border-color 0.25s ease, background 0.25s ease;
+  }
+
+  .card-scene:hover .cf-trigger {
+    border-color: rgba(201, 168, 76, 0.85);
+    background: rgba(201, 168, 76, 0.06);
+  }
+
+  /* ─────────────────────────────────────────────────────── */
+  /* VERSO — informações do serviço                          */
+  /* ─────────────────────────────────────────────────────── */
+  .card-back {
+    background: #1A0F0A;
+    border: 1px solid rgba(201, 168, 76, 0.4);
+    transform: rotateY(180deg);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    padding: 32px 28px;
+    overflow: visible; /* badge pode extrapolar o topo */
+  }
+
+  .card-back--destaque {
+    border-color: #C9A84C;
+  }
+
+  /* Badge "Mais Escolhido" */
+  .cb-badge {
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #C9A84C;
+    color: #0D0805;
+    font-family: 'Jost', sans-serif;
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 6px 20px;
     white-space: nowrap;
   }
 
-  /* Cabeçalho do card */
-  .card__header {
+  /* Cabeçalho: número + ícone */
+  .cb-header {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: space-between;
-    margin-bottom: 24px;
-    margin-top: 8px;
+    margin-bottom: 20px;
+    flex-shrink: 0;
   }
 
-  .card__numero {
+  .cb-numero {
     font-family: 'Cinzel', serif;
     font-size: 11px;
     font-weight: 400;
     letter-spacing: 0.15em;
-    color: var(--text-muted);
+    color: #C9A84C;
   }
 
-  .card__icon {
-    width: 28px;
-    height: 28px;
-    color: var(--gold);
-    opacity: 0.7;
+  .cb-icon {
+    color: #C9A84C;
+    display: flex;
+    align-items: center;
   }
 
-  .card--destaque .card__icon {
-    opacity: 1;
+  .cb-icon svg {
+    width: 22px;
+    height: 22px;
   }
 
-  /* Conteúdo */
-  .card__nome {
+  /* Nome do serviço */
+  .cb-nome {
     font-family: 'Cinzel', serif;
-    font-size: clamp(14px, 1.4vw, 17px);
+    font-size: 17px;
     font-weight: 400;
-    letter-spacing: 0.05em;
-    color: var(--gold-soft);
-    margin-bottom: 14px;
+    letter-spacing: 0.04em;
     line-height: 1.3;
+    color: #E8D5A3;
+    flex-shrink: 0;
   }
 
-  .card__descricao {
+  /* Separadores */
+  .cb-line {
+    width: 100%;
+    height: 1px;
+    background: rgba(201, 168, 76, 0.2);
+    margin: 16px 0;
+    flex-shrink: 0;
+  }
+
+  /* Descrição — cresce para preencher espaço disponível */
+  .cb-descricao {
     font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(16px, 1.4vw, 18px);
+    font-size: 16px;
     font-weight: 300;
-    line-height: 1.75;
-    color: var(--text-muted);
+    line-height: 1.7;
+    color: #A09080;
     flex: 1;
-    margin-bottom: 24px;
+    min-height: 72px;
   }
 
-  /* Meta (duração + valor) */
-  .card__meta {
+  /* Meta: duração + preço */
+  .cb-meta {
     display: flex;
     flex-direction: column;
-    gap: 6px;
-    margin-bottom: 28px;
-    padding-top: 20px;
-    border-top: 1px solid rgba(201, 168, 76, 0.15);
+    gap: 4px;
+    flex-shrink: 0;
   }
 
-  .card__duracao {
+  .cb-duracao {
     font-family: 'Jost', sans-serif;
     font-size: 11px;
     font-weight: 300;
-    letter-spacing: 0.1em;
-    color: var(--text-muted);
+    letter-spacing: 0.12em;
     text-transform: uppercase;
+    color: rgba(201, 168, 76, 0.7);
   }
 
-  .card__valor {
-    font-family: 'Cinzel', serif;
-    font-size: clamp(18px, 2vw, 22px);
+  .cb-valor {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
     font-weight: 400;
-    color: var(--gold-soft);
+    color: #C9A84C;
+    margin-top: 4px;
+    line-height: 1;
   }
 
-  .card--destaque .card__valor {
-    color: var(--gold);
+  .card-back--destaque .cb-valor {
+    color: #E8D5A3;
   }
 
-  /* CTA do card */
-  .card__cta {
-    display: inline-block;
-    font-family: 'Jost', sans-serif;
-    font-size: 12px;
-    font-weight: 400;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--gold);
-    border: 1px solid rgba(201, 168, 76, 0.35);
-    padding: 13px 24px;
+  /* Botão Agendar */
+  .cb-cta {
+    display: block;
+    width: 100%;
+    margin-top: 24px;
+    padding: 14px;
     border-radius: 2px;
+    font-family: 'Jost', sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
     text-align: center;
-    transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    border: 1px solid #C9A84C;
+    background: transparent;
+    color: #C9A84C;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    flex-shrink: 0;
   }
 
-  .card__cta:hover {
+  .cb-cta:hover {
     background: rgba(201, 168, 76, 0.1);
-    border-color: var(--gold);
   }
 
-  .card__cta--destaque {
-    background: var(--gold);
-    color: var(--bg-primary);
-    border-color: var(--gold);
+  .cb-cta--destaque {
+    background: #C9A84C;
+    color: #0D0805;
   }
 
-  .card__cta--destaque:hover {
-    background: var(--gold-soft);
-    border-color: var(--gold-soft);
-    color: var(--bg-primary);
+  .cb-cta--destaque:hover {
+    background: #B8943D;
+    border-color: #B8943D;
+    color: #0D0805;
   }
 
-  /* Nota rodapé */
+  /* ── Nota de rodapé ────────────────────────────────────── */
   .servicos__nota {
     text-align: center;
     font-family: 'Jost', sans-serif;
@@ -300,13 +519,19 @@ const servicos = [
     font-weight: 300;
     letter-spacing: 0.06em;
     color: var(--text-muted);
+    margin-top: 48px;
   }
 
-  /* ── Mobile: carrossel estilo carta de tarot ─────────────── */
+  /* ── Dots (ocultos no desktop) ────────────────────────── */
+  .servicos__dots {
+    display: none;
+  }
+
+  /* ── Mobile: carrossel com snap ────────────────────────── */
   @media (max-width: 900px) {
 
-    /* Estende o grid até as bordas da tela */
-    .servicos__grid {
+    /* Carrossel sangra até as bordas; peek lateral revela cards adjacentes */
+    .cards-grid {
       display: flex;
       overflow-x: scroll;
       scroll-snap-type: x mandatory;
@@ -314,75 +539,51 @@ const servicos = [
       -webkit-overflow-scrolling: touch;
       scrollbar-width: none;
       gap: 16px;
-      /* Recua o container para sangrar nas bordas */
+      /* Recua a grid para sangrar nas bordas da tela */
       margin-inline: calc(-1 * clamp(20px, 5vw, 60px));
-      padding-inline: clamp(20px, 5vw, 60px);
+      padding-inline: clamp(20px, 5vw, 40px);
+      padding-top: 20px;   /* espaço para o badge do card destaque */
       padding-bottom: 8px;
-      margin-bottom: 32px;
+      max-width: none;
       align-items: stretch;
     }
 
-    .servicos__grid::-webkit-scrollbar {
+    .cards-grid::-webkit-scrollbar {
       display: none;
     }
 
-    /* Cada card ocupa 82vw e tem proporção de carta de tarot (~1:1.65) */
-    .card {
+    /* Cada card ocupa ~82vw — os ~18vw restantes criam o peek dos adjacentes */
+    .card-scene {
       flex: 0 0 82vw;
       scroll-snap-align: center;
-      min-height: calc(82vw * 1.65);
-      max-height: 88svh;
-      justify-content: space-between;
+      height: clamp(400px, 78svh, 540px);
     }
 
-    /* Efeito de perspectiva: cards vizinhos ficam levemente inclinados */
-    .card {
-      transition:
-        border-color 0.4s ease,
-        transform 0.5s ease,
-        box-shadow 0.4s ease,
-        opacity 0.4s ease;
+    /* Sem scale no carrossel (o card já domina a tela) */
+    .card-scene--destaque {
+      transform: none;
     }
 
-    /* Borda superior ornamental no mobile — evoca moldura de carta */
-    .card::before {
-      content: '';
-      display: block;
-      width: 40px;
-      height: 1px;
-      background: var(--gold);
-      opacity: 0.4;
-      margin-inline: auto;
-      margin-bottom: 24px;
+    /* Ajustes de texto para largura reduzida */
+    .card-back {
+      padding: 24px 20px;
     }
 
-    /* Aumenta o nome da carta no mobile */
-    .card__nome {
-      font-size: 18px;
-      letter-spacing: 0.08em;
+    .cb-nome {
+      font-size: 15px;
     }
 
-    .card__descricao {
-      font-size: 17px;
-      line-height: 1.8;
-    }
-
-    .card__valor {
+    .cb-valor {
       font-size: 24px;
     }
-  }
 
-  /* Indicadores de posição (dots) — visíveis só no mobile */
-  .servicos__dots {
-    display: none;
-  }
-
-  @media (max-width: 900px) {
+    /* Dots — visíveis só no mobile */
     .servicos__dots {
       display: flex;
       justify-content: center;
       gap: 8px;
-      margin-bottom: 32px;
+      margin-top: 20px;
+      margin-bottom: 8px;
     }
 
     .servicos__dot {
@@ -390,43 +591,98 @@ const servicos = [
       height: 5px;
       border-radius: 50%;
       background: rgba(201, 168, 76, 0.25);
-      transition: background 0.3s ease, transform 0.3s ease;
-      cursor: pointer;
       border: none;
       padding: 0;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.3s ease;
     }
 
     .servicos__dot.active {
       background: var(--gold);
-      transform: scale(1.4);
+      transform: scale(1.5);
     }
   }
 </style>
 
 <script>
-  const grid = document.querySelector<HTMLElement>('.servicos__grid');
-  const dots = document.querySelectorAll<HTMLElement>('.servicos__dot');
-  const cards = document.querySelectorAll<HTMLElement>('.card');
+  const scenes = Array.from(document.querySelectorAll<HTMLElement>('.card-scene'));
+  const grid   = document.querySelector<HTMLElement>('.cards-grid');
+  const dots   = Array.from(document.querySelectorAll<HTMLButtonElement>('.servicos__dot'));
 
-  if (grid && dots.length && cards.length) {
-    const updateDots = () => {
-      const scrollLeft = grid.scrollLeft;
-      const cardWidth = cards[0].offsetWidth + 16;
-      const active = Math.round(scrollLeft / cardWidth);
-      dots.forEach((dot, i) => {
-        dot.classList.toggle('active', i === active);
-      });
-    };
+  const isTouch = !window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
-    grid.addEventListener('scroll', updateDots, { passive: true });
-    updateDots();
-
-    // Clique no dot navega para o card
-    dots.forEach((dot, i) => {
-      dot.addEventListener('click', () => {
-        const cardWidth = cards[0].offsetWidth + 16;
-        grid.scrollTo({ left: i * cardWidth, behavior: 'smooth' });
+  /* ── Flip por toque (mobile) ──────────────────────────── */
+  if (isTouch) {
+    scenes.forEach(scene => {
+      scene.addEventListener('click', e => {
+        if ((e.target as Element).closest('[data-no-flip]')) return;
+        const wasFlipped = scene.classList.contains('flipped');
+        scenes.forEach(s => {
+          s.classList.remove('flipped');
+          s.setAttribute('aria-expanded', 'false');
+        });
+        if (!wasFlipped) {
+          scene.classList.add('flipped');
+          scene.setAttribute('aria-expanded', 'true');
+        }
       });
     });
+
+    /* ── Carrossel: dots + fechar card ao deslizar ──────── */
+    if (grid && dots.length) {
+      let scrollTimer: ReturnType<typeof setTimeout>;
+
+      const getActiveIndex = () => {
+        const cardW = (scenes[0]?.offsetWidth ?? 0) + 16; // largura + gap
+        return Math.round(grid.scrollLeft / cardW);
+      };
+
+      const updateDots = () => {
+        const active = getActiveIndex();
+        dots.forEach((d, i) => d.classList.toggle('active', i === active));
+      };
+
+      grid.addEventListener('scroll', () => {
+        updateDots();
+        // Fecha cards virados ao navegar para outro
+        clearTimeout(scrollTimer);
+        scrollTimer = setTimeout(() => {
+          const active = getActiveIndex();
+          scenes.forEach((s, i) => {
+            if (i !== active) {
+              s.classList.remove('flipped');
+              s.setAttribute('aria-expanded', 'false');
+            }
+          });
+        }, 150);
+      }, { passive: true });
+
+      updateDots();
+
+      // Clique no dot navega para o card correspondente
+      dots.forEach((dot, i) => {
+        dot.addEventListener('click', () => {
+          const cardW = (scenes[0]?.offsetWidth ?? 0) + 16;
+          grid.scrollTo({ left: i * cardW, behavior: 'smooth' });
+        });
+      });
+    }
   }
+
+  /* ── Suporte a teclado (sempre ativo) ─────────────────── */
+  scenes.forEach(scene => {
+    scene.addEventListener('keydown', e => {
+      if (e.key !== 'Enter' && e.key !== ' ') return;
+      e.preventDefault();
+      const isFlipped = scene.classList.contains('flipped');
+      scenes.forEach(s => {
+        s.classList.remove('flipped');
+        s.setAttribute('aria-expanded', 'false');
+      });
+      if (!isFlipped) {
+        scene.classList.add('flipped');
+        scene.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
 </script>
