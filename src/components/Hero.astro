@@ -137,8 +137,8 @@
   }
 
   .hero__top {
-    /* reserva espaço para o header fixo (72px) + folga */
-    padding-top: 96px;
+    /* reserva espaço para o header fixo — min-height garante que hero__bottom nunca sobe até a nav */
+    min-height: clamp(96px, 14vh, 160px);
     flex: 1;
   }
 
