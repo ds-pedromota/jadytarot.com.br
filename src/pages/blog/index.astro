@@ -1,4 +1,6 @@
 ---
+export const prerender = false   // SSR: sempre busca posts frescos do WP
+
 import Layout from '../../layouts/Layout.astro'
 import Header from '../../components/Header.astro'
 import Footer from '../../components/Footer.astro'
@@ -82,13 +84,6 @@ const totalPages = Math.ceil(posts.length / PER_PAGE)
 
   <Footer />
 </Layout>
-
-<!-- Injetar dados para o script client-side -->
-<script
-  type="application/json"
-  id="blog-config"
-  set:text={JSON.stringify({ totalPages, perPage: PER_PAGE, totalPosts: posts.length })}
-></script>
 
 <script>
   const PER_PAGE = 9

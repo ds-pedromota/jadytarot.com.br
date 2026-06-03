@@ -30,6 +30,20 @@ export async function getPosts(params?: {
   return { posts, total, totalPages }
 }
 
+export async function getPostBySlug(slug: string): Promise<WPPost | null> {
+  const url = new URL(`${BASE}/posts`)
+  url.searchParams.set('_embed', '1')
+  url.searchParams.set('slug', slug)
+  url.searchParams.set('status', 'publish')
+
+  const res = await fetch(url.toString(), {
+    headers: { 'Cache-Control': 'max-age=300' },
+  })
+  if (!res.ok) return null
+  const posts: WPPost[] = await res.json()
+  return posts[0] ?? null
+}
+
 export async function getCategories(): Promise<WPCategory[]> {
   const url = new URL(`${BASE}/categories`)
   url.searchParams.set('per_page', '20')

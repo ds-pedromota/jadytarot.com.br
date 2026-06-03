@@ -1,9 +1,11 @@
 ---
+export const prerender = false   // SSR: conteúdo sempre atualizado do WP
+
 import Layout from '../../layouts/Layout.astro'
 import Header from '../../components/Header.astro'
 import Footer from '../../components/Footer.astro'
 import {
-  getPosts,
+  getPostBySlug,
   getPostImageUrl,
   getPostCategories,
   getReadingTime,
@@ -12,16 +14,13 @@ import {
 import type { WPPost } from '../../types/wordpress'
 import '../../styles/global.css'
 
-export async function getStaticPaths() {
-  const { posts } = await getPosts({ perPage: 50 })
-  return posts.map(post => ({
-    params: { slug: post.slug },
-    props: { post },
-  }))
-}
+// SSR: busca o post pelo slug diretamente na WP API (?slug=xxx)
+const { slug } = Astro.params
+const post: WPPost | null = await getPostBySlug(slug!).catch(() => null)
 
-interface Props { post: WPPost }
-const { post } = Astro.props
+if (!post) {
+  return Astro.redirect('/blog/')
+}
 
 const imageUrl    = getPostImageUrl(post, 'large')
 const imageAlt    = post._embedded?.['wp:featuredmedia']?.[0]?.alt_text || post.title.rendered
