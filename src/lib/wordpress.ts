@@ -2,7 +2,7 @@ import type { WPPost, WPCategory } from '../types/wordpress'
 
 const BASE =
   import.meta.env.WP_API_URL ??
-  'https://cms.jadytarot.jiupter.com.br/wp-json/wp/v2'
+  'https://cms.jiupter.com.br/wp-json/wp/v2'
 
 export async function getPosts(params?: {
   categoryId?: number
