@@ -1,0 +1,309 @@
+---
+import Layout from '../../layouts/Layout.astro'
+import Header from '../../components/Header.astro'
+import Footer from '../../components/Footer.astro'
+import PostGrid from '../../components/blog/PostGrid.astro'
+import CategoryFilter from '../../components/blog/CategoryFilter.astro'
+import { getPosts, getCategories } from '../../lib/wordpress'
+import '../../styles/global.css'
+
+// Busca posts e categorias em build time.
+// Filtro e paginação são gerenciados client-side (JS puro) para
+// compatibilidade com SSG — sem dependências extras.
+let posts = []
+let categories = []
+let fetchError = false
+
+try {
+  const [postsResult, catsResult] = await Promise.all([
+    getPosts({ perPage: 50 }),
+    getCategories(),
+  ])
+  posts = postsResult.posts
+  categories = catsResult
+} catch (e) {
+  fetchError = true
+  console.error('[Blog] WP API offline:', e)
+}
+
+const PER_PAGE = 9
+const totalPages = Math.ceil(posts.length / PER_PAGE)
+---
+
+<Layout
+  title="Blog · Jady Mota · Tarô Terapêutico"
+  description="Reflexões sobre tarô, autoconhecimento e psicologia analítica. Artigos por Jady Mota."
+  ogImage="/images/og-fosforo.jpg"
+>
+  <Header />
+
+  <main class="blog-main">
+
+    <!-- Hero -->
+    <section class="blog-hero">
+      <div class="container">
+        <span class="eyebrow">REFLEXÕES</span>
+        <h1 class="blog-hero__title">Artigos</h1>
+        <p class="blog-hero__subtitle">
+          Tarô, psicologia e o que as cartas revelam sobre quem somos.
+        </p>
+      </div>
+    </section>
+
+    <div class="blog-ornament"></div>
+
+    <section class="blog-content">
+      <div class="container">
+
+        {fetchError ? (
+          <div class="blog-error" role="alert">
+            <p>Não foi possível carregar os artigos agora. Tente novamente em instantes.</p>
+          </div>
+        ) : (
+          <>
+            {categories.length > 0 && (
+              <CategoryFilter categories={categories} />
+            )}
+
+            <PostGrid posts={posts} showFeatured={true} />
+
+            {totalPages > 1 && (
+              <nav class="pagination" id="pagination" aria-label="Navegação entre páginas">
+                <!-- Preenchido pelo script abaixo -->
+              </nav>
+            )}
+          </>
+        )}
+
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
+</Layout>
+
+<!-- Injetar dados para o script client-side -->
+<script
+  type="application/json"
+  id="blog-config"
+  set:text={JSON.stringify({ totalPages, perPage: PER_PAGE, totalPosts: posts.length })}
+></script>
+
+<script>
+  const PER_PAGE = 9
+
+  // ── Referências ──────────────────────────────────────────
+  const grid        = document.getElementById('post-grid')
+  const pills       = Array.from(document.querySelectorAll<HTMLButtonElement>('.pill'))
+  const paginationEl = document.getElementById('pagination')
+
+  if (!grid) throw new Error('post-grid not found')
+
+  const allItems = Array.from(
+    grid.querySelectorAll<HTMLElement>('.post-grid__item')
+  )
+
+  let activeCategory = ''
+  let currentPage = 1
+
+  // ── Helpers ───────────────────────────────────────────────
+  function getFilteredItems(): HTMLElement[] {
+    if (!activeCategory) return allItems
+    return allItems.filter(item => {
+      const cats = item.dataset.categories ?? ''
+      return cats.split(' ').includes(activeCategory)
+    })
+  }
+
+  function render() {
+    const visible = getFilteredItems()
+    const start   = (currentPage - 1) * PER_PAGE
+    const end     = start + PER_PAGE
+
+    // Mostrar / esconder cards
+    allItems.forEach(item => { item.hidden = true })
+    visible.slice(start, end).forEach(item => { item.hidden = false })
+
+    // Pills
+    pills.forEach(pill => {
+      const active = pill.dataset.category === activeCategory
+      pill.classList.toggle('active', active)
+      pill.setAttribute('aria-pressed', String(active))
+    })
+
+    // Paginação
+    renderPagination(Math.ceil(visible.length / PER_PAGE))
+
+    // Scroll suave ao topo do grid quando mudar de página
+    if (currentPage > 1) {
+      grid?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+  }
+
+  // ── Paginação ─────────────────────────────────────────────
+  function renderPagination(pages: number) {
+    if (!paginationEl) return
+    if (pages <= 1) { paginationEl.innerHTML = ''; return }
+
+    const items: string[] = []
+
+    // Anterior
+    if (currentPage > 1) {
+      items.push(
+        `<button class="page-btn page-btn--nav" data-page="${currentPage - 1}">← Anterior</button>`
+      )
+    }
+
+    // Números
+    for (let p = 1; p <= pages; p++) {
+      items.push(
+        `<button class="page-btn${p === currentPage ? ' page-btn--active' : ''}" data-page="${p}" aria-label="Página ${p}" aria-current="${p === currentPage ? 'page' : 'false'}">${p}</button>`
+      )
+    }
+
+    // Próxima
+    if (currentPage < pages) {
+      items.push(
+        `<button class="page-btn page-btn--nav" data-page="${currentPage + 1}">Próxima →</button>`
+      )
+    }
+
+    paginationEl.innerHTML = items.join('')
+
+    // Delegar cliques nos botões recém-criados
+    paginationEl.querySelectorAll<HTMLButtonElement>('[data-page]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        currentPage = Number(btn.dataset.page)
+        render()
+      })
+    })
+  }
+
+  // ── Filtro por categoria ──────────────────────────────────
+  pills.forEach(pill => {
+    pill.addEventListener('click', () => {
+      activeCategory = pill.dataset.category ?? ''
+      currentPage = 1
+      render()
+    })
+  })
+
+  // Render inicial
+  render()
+</script>
+
+<style>
+  /* ── Layout geral ────────────────────────────────────── */
+  .blog-main {
+    background: var(--bg-primary);
+    min-height: 100vh;
+  }
+
+  /* ── Hero ────────────────────────────────────────────── */
+  .blog-hero {
+    padding: clamp(100px, 14vw, 160px) 0 clamp(40px, 5vw, 64px);
+    text-align: center;
+  }
+
+  .blog-hero__title {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(32px, 5vw, 52px);
+    font-weight: 400;
+    color: var(--gold-soft);
+    letter-spacing: 0.04em;
+    margin: 12px 0 16px;
+  }
+
+  .blog-hero__subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(17px, 1.6vw, 20px);
+    font-style: italic;
+    font-weight: 300;
+    color: var(--text-muted);
+    max-width: 480px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  /* ── Linha ornamental ────────────────────────────────── */
+  .blog-ornament {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(
+      to right,
+      transparent,
+      rgba(201, 168, 76, 0.4) 20%,
+      rgba(201, 168, 76, 0.4) 80%,
+      transparent
+    );
+    margin-bottom: clamp(40px, 6vw, 64px);
+  }
+
+  /* ── Conteúdo ────────────────────────────────────────── */
+  .blog-content {
+    padding-bottom: clamp(80px, 12vw, 140px);
+  }
+
+  /* ── Erro ────────────────────────────────────────────── */
+  .blog-error {
+    text-align: center;
+    padding: clamp(60px, 10vw, 100px) 0;
+    border-top: 1px solid rgba(201, 168, 76, 0.15);
+  }
+
+  .blog-error p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-style: italic;
+    font-weight: 300;
+    color: var(--text-muted);
+  }
+
+  /* ── Paginação ───────────────────────────────────────── */
+  :global(.pagination) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 64px;
+    flex-wrap: wrap;
+  }
+
+  :global(.page-btn) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 36px;
+    height: 36px;
+    padding: 0 6px;
+    border: 1px solid rgba(201, 168, 76, 0.3);
+    border-radius: 2px;
+    background: transparent;
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    font-weight: 400;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+  }
+
+  :global(.page-btn:hover) {
+    border-color: rgba(201, 168, 76, 0.7);
+    color: var(--gold-soft);
+  }
+
+  :global(.page-btn--active) {
+    border-color: var(--gold);
+    background: rgba(201, 168, 76, 0.08);
+    color: var(--gold);
+  }
+
+  :global(.page-btn--nav) {
+    min-width: auto;
+    padding: 0 16px;
+    font-family: 'Jost', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+  }
+</style>

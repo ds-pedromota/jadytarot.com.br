@@ -1,0 +1,113 @@
+---
+import type { WPPost } from '../../types/wordpress'
+import { getPostCategories } from '../../lib/wordpress'
+import PostCard from './PostCard.astro'
+
+interface Props {
+  posts: WPPost[]
+  showFeatured?: boolean
+}
+
+const { posts, showFeatured = false } = Astro.props
+---
+
+{posts.length === 0 ? (
+  <div class="empty-state" role="status">
+    <svg class="empty-state__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z"/>
+    </svg>
+    <p class="empty-state__text">Nenhum artigo encontrado nesta categoria.</p>
+    <a href="/blog/" class="empty-state__link">← Ver todos os artigos</a>
+  </div>
+) : (
+  <div class="post-grid" id="post-grid">
+    {posts.map((post, i) => {
+      const featured = showFeatured && i === 0
+      const categorySlugs = getPostCategories(post).map(c => c.slug).join(' ')
+      return (
+        <div
+          class={`post-grid__item${featured ? ' post-grid__item--featured' : ''}`}
+          data-categories={categorySlugs}
+          data-index={String(i)}
+        >
+          <PostCard post={post} featured={featured} />
+        </div>
+      )
+    })}
+  </div>
+)}
+
+<style>
+  /* ── Grid desktop ──────────────────────────────────── */
+  .post-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .post-grid__item--featured {
+    grid-column: span 3;
+  }
+
+  /* ── Tablet ────────────────────────────────────────── */
+  @media (max-width: 1023px) {
+    .post-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .post-grid__item--featured {
+      grid-column: span 2;
+    }
+  }
+
+  /* ── Mobile ────────────────────────────────────────── */
+  @media (max-width: 767px) {
+    .post-grid {
+      grid-template-columns: 1fr;
+    }
+    .post-grid__item--featured {
+      grid-column: span 1;
+    }
+  }
+
+  /* ── Empty state ───────────────────────────────────── */
+  .empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: clamp(60px, 10vw, 100px) 0;
+    border-top: 1px solid rgba(201, 168, 76, 0.15);
+    text-align: center;
+  }
+
+  .empty-state__icon {
+    width: 48px;
+    height: 48px;
+    color: rgba(201, 168, 76, 0.35);
+  }
+
+  .empty-state__text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 300;
+    font-style: italic;
+    color: #A09080;
+  }
+
+  .empty-state__link {
+    font-family: 'Jost', sans-serif;
+    font-size: 11px;
+    font-weight: 300;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #C9A84C;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(201, 168, 76, 0.35);
+    padding-bottom: 2px;
+    transition: border-color 0.2s ease;
+  }
+
+  .empty-state__link:hover {
+    border-color: #C9A84C;
+  }
+</style>
