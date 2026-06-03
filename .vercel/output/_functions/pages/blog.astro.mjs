@@ -1,10 +1,9 @@
 import { e as createAstro, f as createComponent, m as maybeRenderHead, h as addAttribute, r as renderTemplate, u as unescapeHTML, k as renderComponent, l as renderScript, n as Fragment } from '../chunks/astro/server_CaiWAfgU.mjs';
 import 'piccolore';
-import { b as $$Layout, $ as $$Header, a as $$Footer } from '../chunks/Footer_No-LMxbW.mjs';
+import { b as $$Layout, $ as $$Header, a as $$Footer } from '../chunks/Footer_BLFQ941f.mjs';
 import { a as getPostImageUrl, b as getPostCategories, c as getReadingTime, f as formatDate, s as stripHtml, d as getPosts, e as getCategories } from '../chunks/wordpress_r0zkWf-w.mjs';
 import 'clsx';
 /* empty css                                 */
-/* empty css                                  */
 export { renderers } from '../renderers.mjs';
 
 const $$Astro$2 = createAstro("https://jadytarot.com.br");

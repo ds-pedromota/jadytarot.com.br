@@ -1,8 +1,7 @@
 import { e as createAstro, f as createComponent, k as renderComponent, r as renderTemplate, m as maybeRenderHead, h as addAttribute, u as unescapeHTML } from '../../chunks/astro/server_CaiWAfgU.mjs';
 import 'piccolore';
-import { $ as $$Header, a as $$Footer, b as $$Layout } from '../../chunks/Footer_No-LMxbW.mjs';
+import { $ as $$Header, a as $$Footer, b as $$Layout } from '../../chunks/Footer_BLFQ941f.mjs';
 import { g as getPostBySlug, a as getPostImageUrl, b as getPostCategories, c as getReadingTime, f as formatDate } from '../../chunks/wordpress_r0zkWf-w.mjs';
-/* empty css                                     */
 /* empty css                                     */
 export { renderers } from '../../renderers.mjs';
 
