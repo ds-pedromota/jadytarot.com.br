@@ -1,19 +1,18 @@
 ---
-export const prerender = false   // SSR: sempre busca posts frescos do WP
-
 import Layout from '../../layouts/Layout.astro'
 import Header from '../../components/Header.astro'
 import Footer from '../../components/Footer.astro'
 import PostGrid from '../../components/blog/PostGrid.astro'
 import CategoryFilter from '../../components/blog/CategoryFilter.astro'
 import { getPosts, getCategories } from '../../lib/wordpress'
+import type { WPPost, WPCategory } from '../../types/wordpress'
 import '../../styles/global.css'
 
 // Busca posts e categorias em build time.
 // Filtro e paginação são gerenciados client-side (JS puro) para
 // compatibilidade com SSG — sem dependências extras.
-let posts = []
-let categories = []
+let posts: WPPost[] = []
+let categories: WPCategory[] = []
 let fetchError = false
 
 try {
