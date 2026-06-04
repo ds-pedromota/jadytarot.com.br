@@ -1,5 +1,9 @@
 ---
 // Header — navegação fixa com logo e links
+// p = prefixo: na home os links são âncoras puras (#section);
+// em outras páginas levam de volta à home primeiro (/#section).
+const isHome = Astro.url.pathname === '/'
+const p = isHome ? '' : '/'
 ---
 
 <header class="site-header" id="site-header">
@@ -12,16 +16,12 @@
 
     <!-- Nav desktop -->
     <nav class="nav-desktop" aria-label="Navegação principal">
-      <a href="#sobre" class="nav-link">Sobre</a>
-      <a href="#servicos" class="nav-link">Serviços</a>
-      <a href="#processo" class="nav-link">Como funciona</a>
-      <a href="#faq" class="nav-link">FAQ</a>
-      <a href="/blog/" class="nav-link">Blog</a>
-      <a
-        href="#servicos"
-        class="nav-cta"
-        aria-label="Agendar consulta"
-      >Agendar</a>
+      <a href={`${p}#sobre`} class="nav-link">Sobre</a>
+      <a href={`${p}#servicos`} class="nav-link">Serviços</a>
+      <a href={`${p}#processo`} class="nav-link">Como funciona</a>
+      <a href={`${p}#faq`} class="nav-link">FAQ</a>
+      <a href="/blog/" class={`nav-link${!isHome && Astro.url.pathname.startsWith('/blog') ? ' nav-link--active' : ''}`}>Blog</a>
+      <a href={`${p}#servicos`} class="nav-cta" aria-label="Agendar consulta">Agendar</a>
     </nav>
 
     <!-- Botão menu mobile -->
@@ -39,12 +39,12 @@
 
   <!-- Menu mobile -->
   <nav class="nav-mobile" id="mobile-menu" aria-hidden="true">
-    <a href="#sobre" class="mobile-link">Sobre</a>
-    <a href="#servicos" class="mobile-link">Serviços</a>
-    <a href="#processo" class="mobile-link">Como funciona</a>
-    <a href="#faq" class="mobile-link">FAQ</a>
+    <a href={`${p}#sobre`} class="mobile-link">Sobre</a>
+    <a href={`${p}#servicos`} class="mobile-link">Serviços</a>
+    <a href={`${p}#processo`} class="mobile-link">Como funciona</a>
+    <a href={`${p}#faq`} class="mobile-link">FAQ</a>
     <a href="/blog/" class="mobile-link">Blog</a>
-    <a href="#servicos" class="mobile-link mobile-link--cta">Agendar consulta</a>
+    <a href={`${p}#servicos`} class="mobile-link mobile-link--cta">Agendar consulta</a>
   </nav>
 </header>
 
@@ -128,6 +128,14 @@
     height: 1px;
     background: var(--gold);
     transition: width 0.3s ease;
+  }
+
+  .nav-link--active {
+    color: var(--gold-soft);
+  }
+
+  .nav-link--active::after {
+    width: 100%;
   }
 
   .nav-link:hover {
