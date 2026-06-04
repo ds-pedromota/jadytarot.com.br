@@ -23,22 +23,44 @@
 
         <h2 class="title-section fade-in fade-in-delay-1">Jady Mota</h2>
         <p class="quem-sou__subtitle fade-in fade-in-delay-1">
-          Praticante de Tarot Terapêutico
+          Advogada · Psicanálise · Tarot Terapêutico
         </p>
 
         <div class="quem-sou__body body-text fade-in fade-in-delay-2">
           <p>
-            Depois de anos estudando profundidade psíquica, simbolização e elaboração,
-            nasceu um espaço para que outras pessoas possam atravessar a si mesmas
-            através dos oráculos.
+            Sou advogada, pós-graduada em Psicanálise e taróloga, apaixonada pelo
+            estudo da mente humana, do simbolismo e dos processos de autoconhecimento.
           </p>
           <p>
-            Tarot e escuta psicanalítica para quem deseja elaborar, compreender
-            e atravessar a própria experiência. Não para receber respostas,
-            mas para encontrar linguagem para o que já existe dentro.
+            Minha trajetória começou no Direito, área que desenvolveu meu pensamento
+            analítico, minha capacidade de investigação e a escuta cuidadosa das
+            histórias e necessidades de cada pessoa. Ao longo dos anos, meu interesse
+            pelo funcionamento psíquico e pelos processos de transformação humana me
+            conduziu aos estudos da Psicanálise, ampliando minha compreensão sobre os
+            conflitos, desejos, emoções e padrões que atravessam a experiência humana.
           </p>
           <p>
-            Um espaço onde o inconsciente encontra linguagem através dos oráculos.
+            Foi nesse percurso que o Tarot encontrou seu lugar em minha vida. Hoje,
+            utilizo as cartas como uma ferramenta simbólica de reflexão e
+            autoconhecimento, buscando criar um espaço de escuta, diálogo e construção
+            de significado. Meu trabalho não se baseia em respostas prontas ou
+            previsões deterministas, mas na possibilidade de olhar para si mesmo com
+            mais consciência, profundidade e autenticidade.
+          </p>
+          <p>
+            Também sou uma pessoa neurodivergente, com diagnóstico de TEA (Transtorno
+            do Espectro Autista), TDAH e altas habilidades/superdotação. Essa vivência
+            pessoal despertou um interesse ainda maior pela diversidade das formas de
+            pensar, sentir e perceber o mundo, além de me proporcionar uma compreensão
+            próxima dos desafios e potencialidades que fazem parte da experiência
+            neurodivergente.
+          </p>
+          <p>
+            Acredito que cada pessoa possui uma história única e que o autoconhecimento
+            acontece quando nos permitimos explorar nossas vivências com curiosidade,
+            honestidade e acolhimento. Meu propósito é oferecer um espaço seguro para
+            essa jornada, integrando escuta, reflexão e simbolismo em um processo de
+            encontro consigo mesmo.
           </p>
         </div>
 
@@ -68,12 +90,13 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: clamp(48px, 7vw, 100px);
-    align-items: center;
+    align-items: start;
   }
 
-  /* Imagem */
+  /* Imagem — sticky: acompanha o scroll enquanto o texto é longo */
   .quem-sou__image-wrap {
-    position: relative;
+    position: sticky;
+    top: clamp(80px, 10vw, 120px);
   }
 
   .quem-sou__placeholder {
