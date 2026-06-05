@@ -34,10 +34,21 @@
           <p>
             Minha trajetória começou no Direito, área que desenvolveu meu pensamento
             analítico, minha capacidade de investigação e a escuta cuidadosa das
-            histórias e necessidades de cada pessoa. Ao longo dos anos, meu interesse
-            pelo funcionamento psíquico e pelos processos de transformação humana me
-            conduziu aos estudos da Psicanálise, ampliando minha compreensão sobre os
-            conflitos, desejos, emoções e padrões que atravessam a experiência humana.
+            histórias e necessidades de cada pessoa.
+          </p>
+          <p>
+            Atualmente, atuo como responsável pela área jurídica de uma empresa de
+            tecnologia, conciliando minha carreira corporativa com meus estudos e
+            atendimentos voltados ao autoconhecimento. Essa vivência entre o universo
+            empresarial, jurídico e humano contribui para um olhar amplo sobre os
+            desafios, escolhas e transformações que fazem parte da vida contemporânea.
+          </p>
+          <p>
+            Minha busca por compreender a complexidade da experiência humana me levou
+            à Psicanálise, área na qual sou pós-graduada e atualmente concluo minha
+            formação em Psicanálise Clínica. Esses estudos ampliaram meu olhar sobre
+            os processos inconscientes, os conflitos internos e as múltiplas formas
+            pelas quais construímos nossa relação com nós mesmos e com o mundo.
           </p>
           <p>
             Foi nesse percurso que o Tarot encontrou seu lugar em minha vida. Hoje,
@@ -62,6 +73,24 @@
             essa jornada, integrando escuta, reflexão e simbolismo em um processo de
             encontro consigo mesmo.
           </p>
+          <p class="quem-sou__fechamento">
+            Entre o Direito, a Psicanálise e o Tarot, construí uma trajetória dedicada
+            à investigação da mente humana e dos significados que atribuímos à nossa
+            própria história.
+          </p>
+        </div>
+
+        <div class="quem-sou__formacao fade-in fade-in-delay-3">
+          <span class="quem-sou__formacao-titulo">Formação e Atuação</span>
+          <ul>
+            <li>Advogada</li>
+            <li>Responsável pela área jurídica de uma empresa de tecnologia</li>
+            <li>Pós-graduada em Psicanálise</li>
+            <li>Pós-graduada em Investigação Criminal e Psicologia Forense</li>
+            <li>Formanda em Psicanálise Clínica</li>
+            <li>Formação em Tarot</li>
+            <li>Pesquisadora de neurodiversidade, simbolismo e desenvolvimento humano</li>
+          </ul>
         </div>
 
         <a
@@ -145,7 +174,66 @@
     display: flex;
     flex-direction: column;
     gap: 18px;
+    margin-bottom: clamp(24px, 3vw, 36px);
+  }
+
+  .quem-sou__fechamento {
+    font-style: italic;
+    color: var(--gold-soft) !important;
+    border-top: 1px solid rgba(201, 168, 76, 0.2);
+    padding-top: 18px;
+    margin-top: 4px;
+  }
+
+  /* Formação e Atuação */
+  .quem-sou__formacao {
     margin-bottom: clamp(32px, 4vw, 48px);
+    padding: 20px 24px;
+    border: 1px solid rgba(201, 168, 76, 0.18);
+    border-radius: 2px;
+    background: rgba(201, 168, 76, 0.03);
+  }
+
+  .quem-sou__formacao-titulo {
+    display: block;
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 14px;
+  }
+
+  .quem-sou__formacao ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .quem-sou__formacao li {
+    font-family: 'Jost', sans-serif;
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+    padding-left: 16px;
+    position: relative;
+  }
+
+  .quem-sou__formacao li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%) rotate(45deg);
+    width: 5px;
+    height: 5px;
+    background: var(--gold);
+    opacity: 0.5;
   }
 
   /* Mobile */
