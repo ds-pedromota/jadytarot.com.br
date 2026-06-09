@@ -17,7 +17,7 @@ const servicos = [
     numero: '02',
     icon: 'sun',
     nome: 'Acompanhamento Essencial',
-    calLink: undefined,
+    calLink: 'jady-muniz-mota-svhmuj/acompanhamento-essencial',
     descricao: 'Dois encontros mensais para acompanhamento emocional, simbólico e reflexivo.',
     duracao: '2 sessões de 1h · Online',
     valor: 'R$ 440,00/mês',
@@ -27,7 +27,7 @@ const servicos = [
     numero: '03',
     icon: 'layers',
     nome: 'Acompanhamento Intensivo',
-    calLink: undefined,
+    calLink: 'jady-muniz-mota-svhmuj/acompanhamento-intensivo',
     descricao: 'Quatro encontros mensais para processos de maior profundidade e continuidade.',
     duracao: '4 sessões de 1h · Online',
     valor: 'R$ 830,00/mês',
@@ -68,6 +68,24 @@ const servicos = [
                 <rect width="300" height="480" fill={`url(#p${i})`}/>
                 <polygon points="150,144 210,240 150,336 90,240" fill="#C9A84C" fill-opacity="0.13"/>
                 <polygon points="150,182 184,240 150,298 116,240" fill="none" stroke="#C9A84C" stroke-opacity="0.22" stroke-width="0.6"/>
+                {s.icon === 'sun' && (
+                  <>
+                    <circle cx="150" cy="240" r="28" fill="none" stroke="#C9A84C" stroke-opacity="0.55" stroke-width="1.2"/>
+                    <circle cx="150" cy="240" r="16" fill="#C9A84C" fill-opacity="0.18" stroke="#C9A84C" stroke-opacity="0.4" stroke-width="0.8"/>
+                    {[0,30,60,90,120,150,180,210,240,270,300,330].map(deg => (
+                      <line
+                        x1={150 + 32 * Math.cos(deg * Math.PI / 180)}
+                        y1={240 + 32 * Math.sin(deg * Math.PI / 180)}
+                        x2={150 + 42 * Math.cos(deg * Math.PI / 180)}
+                        y2={240 + 42 * Math.sin(deg * Math.PI / 180)}
+                        stroke="#C9A84C"
+                        stroke-opacity="0.45"
+                        stroke-width="1.2"
+                        stroke-linecap="round"
+                      />
+                    ))}
+                  </>
+                )}
                 <!-- cantos: cruzetas + círculo -->
                 <line x1="26" y1="44" x2="46" y2="44" stroke="#C9A84C" stroke-opacity="0.3" stroke-width="0.7"/>
                 <line x1="36" y1="34" x2="36" y2="54" stroke="#C9A84C" stroke-opacity="0.3" stroke-width="0.7"/>
@@ -726,12 +744,11 @@ const servicos = [
   });
 
   /* ── Agendamento Cal.com — abre em nova aba ─────────────────────── */
-  const calUrl = 'https://cal.com/jady-muniz-mota-svhmuj/individual';
-
   document.querySelectorAll<HTMLElement>('[data-cal-link]').forEach(btn => {
     btn.addEventListener('click', e => {
       e.preventDefault();
-      window.open(calUrl, '_blank', 'noopener,noreferrer');
+      const link = btn.dataset.calLink;
+      window.open(`https://cal.com/${link}`, '_blank', 'noopener,noreferrer');
     });
   });
 </script>
