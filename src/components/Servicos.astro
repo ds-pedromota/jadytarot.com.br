@@ -11,11 +11,13 @@ const servicos = [
     duracao: '1 hora · Online',
     valor: 'R$ 250,00',
     destaque: false,
+    calLink: 'jady-muniz-mota-svhmuj/individual',
   },
   {
     numero: '02',
     icon: 'refresh',
     nome: 'Acompanhamento Essencial',
+    calLink: undefined,
     descricao: 'Dois encontros mensais para acompanhamento emocional, simbólico e reflexivo.',
     duracao: '2 sessões de 1h · Online',
     valor: 'R$ 440,00/mês',
@@ -25,6 +27,7 @@ const servicos = [
     numero: '03',
     icon: 'layers',
     nome: 'Acompanhamento Intensivo',
+    calLink: undefined,
     descricao: 'Quatro encontros mensais para processos de maior profundidade e continuidade.',
     duracao: '4 sessões de 1h · Online',
     valor: 'R$ 830,00/mês',
@@ -134,14 +137,27 @@ const servicos = [
                 <span class="cb-valor">{s.valor}</span>
               </div>
 
-              <a
-                href="#agendar"
-                class={`cb-cta${s.destaque ? ' cb-cta--destaque' : ''}`}
-                aria-label={`Agendar ${s.nome}`}
-                data-no-flip="true"
-              >
-                Agendar →
-              </a>
+              {s.calLink ? (
+                <button
+                  class={`cb-cta${s.destaque ? ' cb-cta--destaque' : ''}`}
+                  aria-label={`Agendar ${s.nome}`}
+                  data-no-flip="true"
+                  data-cal-link={s.calLink}
+                  data-cal-namespace="consulta"
+                  type="button"
+                >
+                  Agendar →
+                </button>
+              ) : (
+                <a
+                  href="#agendar"
+                  class={`cb-cta${s.destaque ? ' cb-cta--destaque' : ''}`}
+                  aria-label={`Agendar ${s.nome}`}
+                  data-no-flip="true"
+                >
+                  Agendar →
+                </a>
+              )}
 
             </div>
 
@@ -705,5 +721,48 @@ const servicos = [
         scene.setAttribute('aria-expanded', 'true');
       }
     });
+  });
+</script>
+
+<!-- Cal.com embed — modal de agendamento para Consulta Individual -->
+<script is:inline>
+  (function (C, A, L) {
+    var p = function (a, ar) { a.q.push(ar); };
+    var d = C.document;
+    C.Cal = C.Cal || function () {
+      var cal = C.Cal;
+      var ar = arguments;
+      if (!cal.loaded) {
+        cal.ns = {};
+        cal.q = cal.q || [];
+        var s = d.createElement("script");
+        s.src = A;
+        d.head.appendChild(s);
+        cal.loaded = true;
+      }
+      if (ar[0] === L) {
+        var api = function () { p(api, arguments); };
+        var ns = ar[1];
+        api.q = api.q || [];
+        if (typeof ns === "string") {
+          cal.ns[ns] = cal.ns[ns] || api;
+          p(cal.ns[ns], ar);
+          p(cal, ["-init", "ns", ns]);
+        } else {
+          p(cal, ar);
+        }
+        return;
+      }
+      p(cal, ar);
+    };
+  })(window, "https://app.cal.com/embed/embed.js", "init");
+
+  Cal("init", "consulta", { origin: "https://cal.com" });
+
+  Cal.ns["consulta"]("ui", {
+    theme: "dark",
+    styles: { branding: { brandColor: "#C9A84C" } },
+    hideEventTypeDetails: false,
+    layout: "month_view",
   });
 </script>
