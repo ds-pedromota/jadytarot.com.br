@@ -640,62 +640,7 @@ const servicos = [
     }
   }
 
-  /* ── Modal de agendamento ──────────────────────────────── */
-  .cal-modal {
-    position: fixed;
-    inset: 0;
-    z-index: 9999;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
 
-  .cal-modal[hidden] { display: none; }
-
-  .cal-modal__backdrop {
-    position: absolute;
-    inset: 0;
-    background: rgba(13, 8, 5, 0.85);
-    backdrop-filter: blur(4px);
-  }
-
-  .cal-modal__box {
-    position: relative;
-    z-index: 1;
-    width: min(860px, 94vw);
-    height: min(680px, 90vh);
-    background: #1A0F0A;
-    border: 1px solid rgba(201, 168, 76, 0.3);
-    border-radius: 4px;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-  }
-
-  .cal-modal__close {
-    position: absolute;
-    top: 12px;
-    right: 16px;
-    z-index: 2;
-    background: none;
-    border: none;
-    color: var(--gold);
-    font-size: 18px;
-    line-height: 1;
-    cursor: pointer;
-    padding: 6px;
-    opacity: 0.7;
-    transition: opacity 0.2s;
-  }
-
-  .cal-modal__close:hover { opacity: 1; }
-
-  .cal-modal__iframe {
-    flex: 1;
-    width: 100%;
-    border: none;
-    background: #fff;
-  }
 </style>
 
 <script>
@@ -780,52 +725,14 @@ const servicos = [
     });
   });
 
-  /* ── Modal de agendamento Cal.com ─────────────────────── */
-  const calModal  = document.getElementById('cal-modal') as HTMLElement;
-  const calIframe = document.getElementById('cal-iframe') as HTMLIFrameElement;
-  const calClose  = calModal?.querySelector('.cal-modal__close') as HTMLButtonElement;
-  const calUrl    = 'https://cal.com/jady-muniz-mota-svhmuj/individual';
-
-  const openModal = () => {
-    if (!calIframe.src) calIframe.src = calUrl;
-    calModal.hidden = false;
-    document.body.style.overflow = 'hidden';
-    calClose?.focus();
-  };
-
-  const closeModal = () => {
-    calModal.hidden = true;
-    document.body.style.overflow = '';
-  };
+  /* ── Agendamento Cal.com — abre em nova aba ─────────────────────── */
+  const calUrl = 'https://cal.com/jady-muniz-mota-svhmuj/individual';
 
   document.querySelectorAll<HTMLElement>('[data-cal-link]').forEach(btn => {
     btn.addEventListener('click', e => {
       e.preventDefault();
-      openModal();
+      window.open(calUrl, '_blank', 'noopener,noreferrer');
     });
-  });
-
-  calClose?.addEventListener('click', closeModal);
-
-  calModal?.querySelector('.cal-modal__backdrop')?.addEventListener('click', closeModal);
-
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape' && !calModal.hidden) closeModal();
   });
 </script>
 
-<!-- Modal de agendamento — iframe direto, sem embed.js -->
-<div id="cal-modal" class="cal-modal" role="dialog" aria-modal="true" aria-label="Agendar Consulta Individual" hidden>
-  <div class="cal-modal__backdrop"></div>
-  <div class="cal-modal__box">
-    <button class="cal-modal__close" aria-label="Fechar agendamento">&#x2715;</button>
-    <iframe
-      id="cal-iframe"
-      class="cal-modal__iframe"
-      src=""
-      title="Agendar Consulta Individual"
-      loading="lazy"
-      allow="camera; microphone; payment"
-    ></iframe>
-  </div>
-</div>
