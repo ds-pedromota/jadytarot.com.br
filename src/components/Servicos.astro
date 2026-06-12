@@ -68,24 +68,6 @@ const servicos = [
                 <rect width="300" height="480" fill={`url(#p${i})`}/>
                 <polygon points="150,144 210,240 150,336 90,240" fill="#C9A84C" fill-opacity="0.13"/>
                 <polygon points="150,182 184,240 150,298 116,240" fill="none" stroke="#C9A84C" stroke-opacity="0.22" stroke-width="0.6"/>
-                {s.icon === 'sun' && (
-                  <>
-                    <circle cx="150" cy="240" r="28" fill="none" stroke="#C9A84C" stroke-opacity="0.55" stroke-width="1.2"/>
-                    <circle cx="150" cy="240" r="16" fill="#C9A84C" fill-opacity="0.18" stroke="#C9A84C" stroke-opacity="0.4" stroke-width="0.8"/>
-                    {[0,30,60,90,120,150,180,210,240,270,300,330].map(deg => (
-                      <line
-                        x1={150 + 32 * Math.cos(deg * Math.PI / 180)}
-                        y1={240 + 32 * Math.sin(deg * Math.PI / 180)}
-                        x2={150 + 42 * Math.cos(deg * Math.PI / 180)}
-                        y2={240 + 42 * Math.sin(deg * Math.PI / 180)}
-                        stroke="#C9A84C"
-                        stroke-opacity="0.45"
-                        stroke-width="1.2"
-                        stroke-linecap="round"
-                      />
-                    ))}
-                  </>
-                )}
                 <!-- cantos: cruzetas + círculo -->
                 <line x1="26" y1="44" x2="46" y2="44" stroke="#C9A84C" stroke-opacity="0.3" stroke-width="0.7"/>
                 <line x1="36" y1="34" x2="36" y2="54" stroke="#C9A84C" stroke-opacity="0.3" stroke-width="0.7"/>
@@ -131,8 +113,15 @@ const servicos = [
                   )}
                   {s.icon === 'sun' && (
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M20 11A8.1 8.1 0 0 0 4.5 9M4 5v4h4"/>
-                      <path d="M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4"/>
+                      <circle cx="12" cy="12" r="4"/>
+                      <line x1="12" y1="2" x2="12" y2="4"/>
+                      <line x1="12" y1="20" x2="12" y2="22"/>
+                      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                      <line x1="2" y1="12" x2="4" y2="12"/>
+                      <line x1="20" y1="12" x2="22" y2="12"/>
+                      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
                     </svg>
                   )}
                   {s.icon === 'layers' && (
