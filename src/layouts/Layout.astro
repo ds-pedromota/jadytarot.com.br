@@ -68,6 +68,18 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     />
 
     <title>{title}</title>
+
+    <!-- Google Site Verification -->
+    <meta name="google-site-verification" content="QislXOnAZJjJg8eqJHGuI7PVdhUqG9rBI6cTdK_RF3M" />
+
+    <!-- Google Analytics (GA4) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5K785P4XZ2"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-5K785P4XZ2');
+    </script>
   </head>
 
   <body>
