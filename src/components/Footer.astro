@@ -48,7 +48,8 @@ const links = [
 
   <div class="container footer__bottom">
     <p class="footer__copy">
-      © {anoAtual} Jady Mota · Todos os direitos reservados
+      © {anoAtual} Jady Mota · Todos os direitos reservados ·
+      <a href="/politicas" class="footer__policy">Políticas de Agendamento e Privacidade</a>
     </p>
     <p class="footer__credit">
       Desenvolvido por <a href="https://jiupter.com.br" target="_blank" rel="noopener noreferrer">Jiupter</a>
@@ -164,6 +165,15 @@ const links = [
     padding-top: 24px;
     border-top: 1px solid rgba(201, 168, 76, 0.1);
     flex-wrap: wrap;
+  }
+
+  .footer__policy {
+    color: var(--gold);
+    transition: opacity 0.2s;
+  }
+
+  .footer__policy:hover {
+    opacity: 0.7;
   }
 
   .footer__copy,
