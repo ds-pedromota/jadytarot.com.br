@@ -50,6 +50,13 @@ const steps = [
         </h2>
       </div>
 
+      <!-- Frase conceitual -->
+      <p class="como-funciona__frase fade-in fade-in-delay-1">
+        O tarot oferece símbolos.<br />
+        A escuta oferece contexto.<br />
+        O processo integra ambos para favorecer o autoconhecimento.
+      </p>
+
       <!-- Steps -->
       <div class="como-funciona__steps">
         {steps.map((step, i) => (
@@ -138,6 +145,19 @@ const steps = [
     color: var(--gold-soft);
     margin-top: 14px;
     letter-spacing: 0.01em;
+  }
+
+  /* ── Frase conceitual ─────────────────────────────────── */
+  .como-funciona__frase {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(16px, 1.5vw, 19px);
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.9;
+    color: var(--text-muted);
+    padding-left: 20px;
+    border-left: 1px solid rgba(201, 168, 76, 0.3);
+    margin-bottom: clamp(40px, 5vw, 56px);
   }
 
   /* ── Steps ─────────────────────────────────────────────── */
